@@ -1,3 +1,5 @@
+remote_theme: just-the-docs/just-the-docs
+
 # Welcome to Jekyll!
 #
 # This config file is meant for settings that affect your whole site, values
@@ -13,7 +15,6 @@
 # you will see them accessed via {{ site.title }}, {{ site.github_repo }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-remote_theme: just-the-docs/just-the-docs
 title: Just the Docs
 description: A Jekyll theme for documentation
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -115,7 +116,7 @@ nav_sort: case_sensitive # Capital letters sorted before lowercase
 # External navigation links
 nav_external_links:
   - title: Just the Docs on GitHub
-    url: https://github.com/cwisky/cwisky.github.io"
+    url: https://github.com/cwisky/cwisky.github.io
 
 # Footer content
 # appears at the bottom of every page's main content
@@ -135,7 +136,7 @@ last_edit_time_format: "%b %e %Y at %I:%M %p" # uses ruby's time format: https:/
 # Footer "Edit this page on GitHub" link text
 gh_edit_link: true # show or hide edit this page link
 gh_edit_link_text: "Edit this page on GitHub"
-gh_edit_repository: "https://github.com/just-the-docs/just-the-docs" # the github URL for your repo
+gh_edit_repository: "https://github.com/cwisky/cwisky.github.io" # the github URL for your repo
 gh_edit_branch: "main" # the branch that your docs is served from
 # gh_edit_source: docs # the source that your files originate from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately
