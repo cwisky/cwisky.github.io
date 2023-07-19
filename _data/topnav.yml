@@ -7,6 +7,8 @@ topnav:
       external_url: https://github.com/tomjoht/documentation-theme-jekyll
     - title: News
       url: /news
+    - title: AI
+      url: /AI
 
 #Topnav dropdowns
 topnav_dropdowns:
