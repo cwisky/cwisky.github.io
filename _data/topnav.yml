@@ -31,6 +31,6 @@ topnav_dropdowns:
         - title: Product 2
           url: /p2_landing_page.html
         - title: Product 3
-          url: /p2_landing_page.html
+          url: /p3_landing_page.html
 
 # Copyright 2021 Google LLC
