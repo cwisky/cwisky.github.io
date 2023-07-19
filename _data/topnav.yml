@@ -8,7 +8,7 @@ topnav:
     - title: News
       url: /news
     - title: AI
-      url: /AI/AI.html
+      url: /ai
 
 #Topnav dropdowns
 topnav_dropdowns:
