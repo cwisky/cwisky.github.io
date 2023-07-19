@@ -259,7 +259,7 @@ entries:
     folderitems:
 
     - title: Deep Learning
-      url: /mydoc_troubleshooting.html
+      url: /machine_learning.html
       output: web, pdf
 
   - title: Tag archives
