@@ -253,12 +253,12 @@ entries:
       url: /mydoc_troubleshooting.html
       output: web, pdf
 
-  - title: 커스텀 링크
+  - title: Machine Learning
     output: web, pdf
 
     folderitems:
 
-    - title: Troubleshooting
+    - title: Deep Learning
       url: /mydoc_troubleshooting.html
       output: web, pdf
 
