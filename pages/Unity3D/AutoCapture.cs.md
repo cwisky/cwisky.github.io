@@ -1,0 +1,647 @@
+---
+title: Auto Capture in Unity3D
+keywords: cs scripts
+summary: "지정된 배경 이미지 위에 컵 모델을 올리고 컵을 회전하면서 한개의 모델당 20개의 2D 이미지를 캡쳐하면서 동시에 640x480 크기의 이미지 중에서 컵 모델이 차지하는 영역을 YOLOv5 Label 형식에 따라 텍스트 파일을 생성한다"
+sidebar: ai_sidebar
+permalink: auto_capture.cs.html
+folder: Unity3D
+---
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using System.IO;
+using System.Xml;
+
+using UnityEngine.UI;
+using UnityEditor;
+using System.Text.RegularExpressions;
+
+public class AutoCapture : MonoBehaviour
+{
+    public Camera mainCamera; // the main camera in the scene
+    public Light directionalLight;
+    public int class_index = 0;            // 이미지 label, YOLOv5에서 cup은 41
+    public Image backgroundImage;    // 에디터에서 임의의 이미지를 설정할 때 사용
+    public int bg_index;             // 에디터에서 배경 이미지 번호를 지정할 때 사용
+
+    private Vector3 rot_axis = Vector3.up;  // 오브젝트 마다 회전 축방향이 다를 수 있음
+    private GameObject targetObject; // the object you want to draw a bounding box around
+    private string imageName; // Name of the captured image and label files, ex) cup01
+    private Bounds bounds; // the bounds of the object
+    private Rect MinMaxRect;  //   Screen coordinates of target model
+    private bool showBBox = true;
+
+    private List<GameObject> objList = new List<GameObject>();  // 오브젝트 리스트
+    private List<string> bgList = new List<string>();           // 배경파일명 리스트
+    private List<string> strNameList = new List<string>();      // 오브젝트 이름 리스트
+
+    private int imageWidth = 640; // Width of the captured image
+    private int imageHeight = 480; // Height of the captured image
+
+    private bool completed = false;
+    private int idx = 1;      //이미지,라벨 파일명에 붙는 순번, 각 오브젝트마다 1부터 시작됨
+    private int obj_idx;      // Hierarchy뷰에 활성화되어 있는 각 오브젝트의 순번
+    private float current_angle = 0.0F;
+    private float rotPerFrame = 16.3F;
+    private float camRotPerFrame = 2.0F;
+
+    private string filePath;
+
+    // 배경이미지 파일명 배열
+    private  string[] bgpath;
+
+    //Hierarchy에서 각 모델을 20개 정도씩 모아서 그룹을 생성함(사용의 편의성)
+    string[] objGroup = {"GameObject1", "GameObject2", "GameObject3", "GameObject4",
+        "GameObject5","GameObject6"};
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //Hierarchy 에 있는 모든 오브젝트의 이름 배열 생성(150개 보다 적은 경우)
+        string[] tmp = new string[150];
+        for(int i = 1; i <= 150; i++)
+        {
+            if (i < 10)
+            {
+                tmp[i - 1] = "cup00" + i;
+            }else if (i < 100)
+            {
+                tmp[i - 1] = "cup0" + i;
+            }else if(i<1000)
+            {
+                tmp[i-1] = "cup" + i;
+            }
+        }
+
+        //오브젝트의 이름과 그룹을 결합한 Hierarchy내의 경로 문자열 생성
+        foreach(string group in objGroup)  // "GameObject1/cup001" 형식
+        {
+            foreach(string cup in tmp)
+            {
+                string name = group + "/" + cup;
+                GameObject cupObj = GameObject.Find(name);
+                if(cupObj!=null)
+                {
+                    objList.Add(cupObj);   // 오브젝트 리스트 초기화
+                    strNameList.Add(name); // 오브젝트 이름 리스트 초기화
+                }
+            }
+        }
+
+        mainCamera = Camera.main;
+
+        //배경 이미지 파일명 배열 생성(배경을 무작위로 선택하기 위한 준비)
+        bgpath = new string[100];
+        for (int i = 0; i < bgpath.Length; i++)
+        {
+            bgpath[i] = "background" + i + ".jpg";
+        }
+
+        Debug.Log("컵 갯수:" + objList.Count);
+
+        //모든 오브젝트를 장면에서 안보이도록 설정(순서대로 활성화하면서 캡쳐할 때 다시 보이도록 함)
+        foreach( GameObject c in objList)
+        {
+            c.SetActive(false);
+        }
+
+        //각 오브젝트를 순회하면서 캡쳐할 때 해당 오브젝트와 카메라 위치 등을 초기화함
+        initCapture();
+    }
+
+    //감추기 : createdGO.hideFlags = HideFlags.HideInHierarchy;
+
+    private void initCapture() // 각 오브젝트 캡쳐 초기에 한번만 호출
+    {
+        // Unity Editor 화면을 수동으로 조작하여 imageWidth, imageHeight에 맞추고 아래처럼 확인한다
+        Debug.Log("Width(" + Screen.width + ")," + "Height(" + Screen.height + ")");
+
+        Debug.Log("오브젝트명:" + objList[obj_idx].name);
+        /*
+        foreach (GameObject c in objList)
+        {
+            c.SetActive(false);
+        }*/
+
+        //하위 오브젝트에 Renderer 가 포함된 경우에는 하위 오브젝트를 회전해야 효과가 있음
+        objList[obj_idx].SetActive(true);
+        GameObject sub = GameObject.Find(strNameList[obj_idx] + "/" + objList[obj_idx].name);
+
+        if (sub == null)
+        {
+            sub = GameObject.Find(strNameList[obj_idx]);
+        }
+
+        targetObject = sub;
+
+        current_angle = 0.0f;
+
+        string rot = targetObject.tag.Split(":")[1];
+
+        if (rot.Equals("X")) rot_axis = Vector3.right;
+        else if (rot.Equals("Y")) rot_axis = Vector3.up;
+        else if (rot.Equals("Z")) rot_axis = Vector3.forward;
+
+        //Camera 위치 초기화
+        mainCamera.transform.position = new Vector3(0, 2.64f, -8.5f);
+
+        //Camera 시작 각도(상하) 초기화
+        mainCamera.transform.rotation = Quaternion.Euler(new Vector3(-7.3f, 0, 0));
+
+        //
+        imageName = targetObject.name;
+
+        //무작위 오브젝트 회전방향 결정
+        rotPerFrame *= (Random.Range(0, 2) == 0 ? 1 : -1);
+    }
+
+    void Update()
+    {
+        // rotate the target object around its fixed position
+        //targetObject.transform.Rotate(Vector3.up, Time.deltaTime * 35f);
+        
+        if (completed) return;
+
+        // 배경 이미지 설정, 배경을 없애려면 Hierarchy에서 Canvas도 비활성화해야 함
+        //0 : 배경없음
+        //1 : 전체 오브젝트에 대한 단일 배경(Hierarchy의 Canvas도 활성화해야 함)
+        //2 : 배경 100개 중 무작위 택일
+        //3 : 배경 100개 중 무작위 택일 + 뒤집기
+        //4 : 배경 2개 무작위 추출/합성(0.5, 0.5)
+        LoadImageBackground(1);
+
+        // Object Rotation
+        targetObject.transform.Rotate(rot_axis, rotPerFrame);
+        current_angle += rotPerFrame;
+
+        //카메라를 x축 중심으로 회전
+        mainCamera.transform.RotateAround(targetObject.transform.position, Vector3.right, camRotPerFrame);
+
+        // get the bounds of the target object
+        bounds = targetObject.GetComponent<Renderer>().bounds;
+
+        // change the direction of Directional Light randomly
+        RandomLightDirection(0);  // 0:조명방향변경 없음, 1:조명 방향을 변경하면서 캡쳐할 때
+
+        // change the color of light
+        //RandomLightColor();      // 조명 색상을 변경하면서 캡쳐할 때
+
+        //ChangeObjectColor();     // 오브젝트의 색상을 변경하면서 캡쳐할 때
+
+        //한개의 오브젝트가 한반퀴 돌며 캡쳐를 모두 마친 경우
+        if (current_angle >= 360.0F || current_angle <= -360.0F)
+        {
+            idx = 1;
+
+            Debug.Log("obj_idx=" + obj_idx);
+            if (objList.Count-1 == obj_idx)
+            {
+                completed = true;
+            }
+            else
+            {
+                objList[obj_idx++].SetActive(false);
+                initCapture();
+            }
+        }
+    }
+
+    void LateUpdate()
+    {
+        // Capture a still image
+        if (!completed)
+        {
+            if (MinMaxRect.xMin + MinMaxRect.yMin + MinMaxRect.xMax + MinMaxRect.yMax == 0) return;
+            CaptureSave();
+            //WriteAnnotationXml();    //xml 파일에 라벨 정보를 저장할 때
+            YOLOv5_Labelling();        // YOLO 라벨링 파일 생성
+            idx++;
+        }
+    }
+
+    void OnGUI()
+    {
+        if (!showBBox) return;
+        if (completed) return;
+
+        MinMaxRect = GetMinMaxBounds();
+        if (MinMaxRect.xMin + MinMaxRect.yMin + MinMaxRect.xMax + MinMaxRect.yMax == 0) return;
+
+        //Render the box, 바운딩 박스 그리기
+        GUI.color = Color.yellow;
+        GUI.Box(MinMaxRect, "Bounding Box");
+    }
+
+    Rect GetMinMaxBounds()
+    {
+        //The object is behind us
+        if (mainCamera.WorldToScreenPoint(bounds.center).z < 0) return new Rect();
+
+        Vector3[] v = targetObject.GetComponent<MeshFilter>().mesh.vertices;
+
+        for (int i = 0; i < v.Length; i++)
+        {
+            //World space
+            v[i] = targetObject.transform.TransformPoint(v[i]);
+            //GUI space
+            v[i] = mainCamera.WorldToScreenPoint(v[i]);
+            v[i].y = Screen.height - v[i].y;
+        }
+
+        Vector3 min = v[0];
+        Vector3 max = v[0];
+
+        for (int i = 1; i < v.Length; i++)
+        {
+            min = Vector3.Min(min, v[i]);
+            max = Vector3.Max(max, v[i]);
+        }
+
+        //Construct a rect of the min and max positions and apply some margin
+        Rect r = Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+        float margin = 10F;   // 오브젝트와 바운딩박스 사이의 간격
+        r.xMin -= margin;
+        r.xMax += margin;
+        r.yMin -= margin;
+        r.yMax += margin;
+        return r;
+    }
+
+    void RandomLightDirection(int type)
+    {
+        if (type == 0)
+        {
+            // 디폴트 방향고정 조명
+            return;
+        }
+        // Randomly change the direction of the light
+        directionalLight.transform.rotation = Quaternion.Euler(
+            Random.Range(-5, 50),
+            Random.Range(0, 360),
+            Random.Range(0, 360)
+        );
+    }
+
+    void RandomLightColor()
+    {
+        // Change the color of the light
+        directionalLight.color = new Color(
+            Random.Range(0f, 1f),
+            Random.Range(0f, 1f),
+            Random.Range(0f, 1f)
+        );
+    }
+
+    void CaptureSave()
+    {
+        // Capture a still image
+        if (completed) return;
+        RenderTexture renderTexture = new RenderTexture(imageWidth, imageHeight, 24);
+        mainCamera.targetTexture = renderTexture;
+        Texture2D texture = new Texture2D(imageWidth, imageHeight, TextureFormat.RGB24, false);
+        mainCamera.Render();
+        RenderTexture.active = renderTexture;
+        texture.ReadPixels(new Rect(0, 0, imageWidth, imageHeight), 0, 0);
+        mainCamera.targetTexture = null;
+        RenderTexture.active = null;
+        Destroy(renderTexture);
+        byte[] bytes = texture.EncodeToPNG();
+        string fname = Application.dataPath + "/captured/images/" + imageName + "_" + idx + ".png";
+        System.IO.File.WriteAllBytes(fname, bytes);
+        //Debug.Log("Image captured(" + fname + ")");
+        //Debug.Log("Euler Angle:" + targetObject.transform.rotation.eulerAngles.y);
+        if (current_angle >= 360.0F) completed = true;
+    }
+
+    private void WriteAnnotationXml()
+    {
+        Rect r = MinMaxRect;
+
+        XmlDocument xmlDocument = new XmlDocument();
+
+        // Create the root element and add it to the document
+        XmlElement root = xmlDocument.CreateElement("annotation");
+        xmlDocument.AppendChild(root);
+
+        XmlElement folder = xmlDocument.CreateElement("folder");
+        folder.InnerText = "images";
+        root.AppendChild(folder);
+
+        XmlElement filename = xmlDocument.CreateElement("filename");
+        filename.InnerText = "sample.jpg";
+        root.AppendChild(filename);
+
+        XmlElement path = xmlDocument.CreateElement("path");
+        path.InnerText = "D:/test/training/sample.jpg";
+        root.AppendChild(path);
+
+        XmlElement source = xmlDocument.CreateElement("source");
+        XmlElement database = xmlDocument.CreateElement("database");
+        database.InnerText = "Unknown";
+        source.AppendChild(database);
+        root.AppendChild(source);
+
+        XmlElement size = xmlDocument.CreateElement("size");
+
+        XmlElement width = xmlDocument.CreateElement("width");
+        width.InnerText = "640";
+        XmlElement height = xmlDocument.CreateElement("height");
+        height.InnerText = "480";
+        XmlElement depth = xmlDocument.CreateElement("depth");
+        depth.InnerText = "3";
+
+        size.AppendChild(width);
+        size.AppendChild(height);
+        size.AppendChild(depth);
+        root.AppendChild(size);
+
+        XmlElement segmented = xmlDocument.CreateElement("segmented");
+        segmented.InnerText = "0";
+        root.AppendChild(segmented);
+
+        XmlElement obj = xmlDocument.CreateElement("object");
+        XmlElement name = xmlDocument.CreateElement("name");
+        name.InnerText = imageName;
+        obj.AppendChild(name);
+
+        XmlElement pose = xmlDocument.CreateElement("pose");
+        pose.InnerText = "Unspecified";
+        obj.AppendChild(pose);
+
+        XmlElement truncated = xmlDocument.CreateElement("truncated");
+        truncated.InnerText = "0";
+        obj.AppendChild(truncated);
+
+        XmlElement difficult = xmlDocument.CreateElement("difficult");
+        difficult.InnerText = "0";
+        obj.AppendChild(difficult);
+
+        XmlElement bndbox = xmlDocument.CreateElement("bndbox");
+        XmlElement _xmin = xmlDocument.CreateElement("xmin");
+        _xmin.InnerText = (int)r.xMin + "";
+        bndbox.AppendChild(_xmin);
+
+        XmlElement _ymin = xmlDocument.CreateElement("ymin");
+        _ymin.InnerText = (int)r.yMin + "";
+        bndbox.AppendChild(_ymin);
+
+        XmlElement _xmax = xmlDocument.CreateElement("xmax");
+        _xmax.InnerText = (int)r.xMax + "";
+        bndbox.AppendChild(_xmax);
+
+        XmlElement _ymax = xmlDocument.CreateElement("ymax");
+        _ymax.InnerText = (int)r.yMax + "";
+        bndbox.AppendChild(_ymax);
+
+        obj.AppendChild(bndbox);
+
+        root.AppendChild(obj);
+
+        // Save the XML document to a file
+        //Application.dataPath + "/captured/labels/" + imageName + "_" + idx + ".xml";
+        string xmlPath = Application.dataPath + "/captured/labels/" + imageName + "_" + idx + ".xml";
+        xmlDocument.Save(xmlPath);
+    }
+
+    void YOLOv5_Labelling()
+    {
+        Rect r = MinMaxRect;
+
+        float x_center = (r.xMax + r.xMin) / 2 / imageWidth;
+        float y_center = (r.yMax + r.yMin) / 2 / imageHeight;
+        float width = (r.xMax - r.xMin) / imageWidth;
+        float height = (r.yMax - r.yMin) / imageHeight;
+
+        string path = Path.Combine(Application.dataPath + "/captured/labels/", imageName + "_" + idx + ".txt");
+        StreamWriter writer = new StreamWriter(path); // create a StreamWriter object to write to the file
+        writer.Write(class_index + " " + x_center + " " + y_center + " " + width + " " + height);
+        writer.Close();
+    }
+
+    void ChangeObjectColor()
+    {
+        Color color = new Color(
+            Random.Range(0f, 1f),
+            Random.Range(0f, 1f),
+            Random.Range(0f, 1f)
+        );
+        targetObject.GetComponentInChildren<Renderer>().material.color = color;
+    }
+
+    //0 : 배경없음
+    //1 : 전체 오브젝트에 대한 단일 배경
+    //2 : 배경 100개 중 무작위 택일
+    //3 : 배경 100개 중 무작위 택일 + 뒤집기
+    //4 : 배경 2개 무작위 추출/합성(0.5, 0.5)
+    void LoadImageBackground(int type)
+    {
+        if (type == 0) return;
+
+        int idx = Random.Range(0, 100);  // 배경이미지 배열의 무작위 인덱스 추출
+        Texture2D texture1 = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/resources/bg/" + bgpath[idx], typeof(Texture2D));
+
+        int idx2 = Random.Range(0, 100);
+        while (idx2 == idx) idx2 = Random.Range(0, 100); 
+        Texture2D texture2 = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/resources/bg/" + bgpath[idx2], typeof(Texture2D));
+
+        Texture2D texture = null;
+
+        if (type == 1) // 모든 오브젝트에 동일한 배경 적용시 
+        {   // 인덱스를 사용하여 배경을 지정할 때(타입을 1로 설정하고 에디터의 bg_index에 배경 인덱스 할당)
+            //texture = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/resources/bg/" + bgpath[bg_index], typeof(Texture2D)); 
+
+            texture = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/resources/bg/background6_14.png", typeof(Texture2D)); 
+        }
+        else if (type == 2) // 100개 중 택1
+        {
+            texture = texture1;
+        }
+        else if (type == 3) // 100개 중 택1 + 뒤집기
+        {
+            texture = texture1;
+            flipBG();
+        }
+        else if (type == 4) // 동등한 비율로 합성
+        {
+            texture = mergeBG(texture1, texture2, 0.5f, 0.5f);
+        }
+
+        // Sobel Filter 적용 시작
+        //texture = ApplySobelFilter(texture);
+        // Sobel Filter 적용 끝
+
+        // Sharpen Filter 적용 시작
+        //texture = ApplySharpenFilter(texture);
+        // Sharpen Filter 적용 끝
+
+        texture.Apply();
+
+        // Set the sprite of the image component to the loaded texture
+        if (texture == null)
+        {
+            backgroundImage.sprite = null;
+            return;
+        }
+
+        backgroundImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+        // 사원수를 사용한 회전의 합성 표현
+        // Quaternion.Euler(new Vector3(0, 0, 180)) * Quaternion.Euler(new Vector3(0, 180, 0))
+
+        // 오일러각 <-> 사원수 변환의 예
+        // Vector3 rot = Quaternion.Euler(new Vector3(120, 60, 100)).eulerAngles;
+        // backgroundImage.transform.Rotate(rot);
+    }
+
+    Texture2D mergeBG(Texture2D texture1, Texture2D texture2, float ratio1, float ratio2)
+    {
+        Texture2D minTex = texture1.GetPixels().Length < texture2.GetPixels().Length ? texture1 : texture2;
+        Texture2D maxTex = texture1.GetPixels().Length > texture2.GetPixels().Length ? texture1 : texture2;
+
+        Color[] max = maxTex.GetPixels();
+        Color[] min = minTex.GetPixels();
+
+        for (int i = 0; i < min.Length; i++)
+        {
+            min[i].r = (ratio1 * min[i].r + ratio2 * max[i].r);
+            min[i].g = (ratio1 * min[i].g + ratio2 * max[i].g);
+            min[i].b = (ratio1 * min[i].b + ratio2 * max[i].b);
+        }
+
+        Texture2D texture = new Texture2D(minTex.width, minTex.height);
+        texture.SetPixels(min);
+        //texture.Apply();
+        return texture;
+    }
+
+    void flipBG()
+    {
+        int random = Random.Range(0, 4);
+        switch (random)
+        {
+            case 0:
+                backgroundImage.transform.Rotate(Vector3.forward, 180);
+                break;
+            case 1:
+                backgroundImage.transform.Rotate(Vector3.right, 180);
+                break;
+            case 2:
+                backgroundImage.transform.Rotate(Vector3.up, 180);
+                break;
+        }
+    }
+
+
+    // Sobel Filter (Edge Detection, grayscale)
+    Texture2D ApplySobelFilter(Texture2D sourceTexture)
+    {
+        Texture2D edgeTexture = new Texture2D(sourceTexture.width, sourceTexture.height);
+        int edgeLineWidth = 1;
+
+        // Loop through each pixel in the image
+        for (int x = 1; x < sourceTexture.width - 1; x++)
+        {
+            for (int y = 1; y < sourceTexture.height - 1; y++)
+            {
+                // Calculate the Sobel values for this pixel
+                float gx = -1 * sourceTexture.GetPixel(x - 1, y - 1).grayscale + 1 * sourceTexture.GetPixel(x + 1, y - 1).grayscale
+                         - 2 * sourceTexture.GetPixel(x - 1, y).grayscale + 2 * sourceTexture.GetPixel(x + 1, y).grayscale
+                         - 1 * sourceTexture.GetPixel(x - 1, y + 1).grayscale + 1 * sourceTexture.GetPixel(x + 1, y + 1).grayscale;
+
+                float gy = -1 * sourceTexture.GetPixel(x - 1, y - 1).grayscale - 2 * sourceTexture.GetPixel(x, y - 1).grayscale - 1 * sourceTexture.GetPixel(x + 1, y - 1).grayscale
+                          + 1 * sourceTexture.GetPixel(x - 1, y + 1).grayscale + 2 * sourceTexture.GetPixel(x, y + 1).grayscale + 1 * sourceTexture.GetPixel(x + 1, y + 1).grayscale;
+
+                // Calculate the edge strength for this pixel
+                float edgeStrength = Mathf.Sqrt(gx * gx + gy * gy);
+
+                // Set the pixel color based on the edge strength
+                float threshold = 0.5f;
+
+                if (edgeStrength > threshold)
+                {
+                    for (int i = 0; i < edgeLineWidth; i++)
+                    {
+                        for (int j = 0; j < edgeLineWidth; j++)
+                        {
+                            int u = x - edgeLineWidth / 2 + i;
+                            int v = y - edgeLineWidth / 2 + j;
+                            edgeTexture.SetPixel(u, v, Color.white);
+                        }
+                    }
+                }
+                else
+                {
+                    edgeTexture.SetPixel(x, y, Color.black);
+                }
+            }
+        }
+
+        // Apply the changes to the output texture
+        edgeTexture.Apply();
+        return edgeTexture;
+    }
+
+
+    // This code sharpens a blurred Texture2D image and allows for control over the edge line width.
+    /*
+    Texture2D sourceTexture; // Input image
+    Texture2D sharpenedTexture; // Output image
+    int edgeLineWidth = 1; // Width of the detected edges
+    */
+    Texture2D ApplySharpenFilter(Texture2D sourceTexture)
+    {
+        int edgeLineWidth = 1; // Width of the detected edges
+
+        // Create a copy of the input texture
+        Texture2D copyTexture = new Texture2D(sourceTexture.width, sourceTexture.height);
+        for (int x = 0; x < sourceTexture.width; x++)
+        {
+            for (int y = 0; y < sourceTexture.height; y++)
+            {
+                copyTexture.SetPixel(x, y, sourceTexture.GetPixel(x, y));
+            }
+        }
+        copyTexture.Apply();
+
+        // Apply a Laplacian filter to the copy texture
+        Texture2D laplacianTexture = new Texture2D(sourceTexture.width, sourceTexture.height);
+        for (int x = 1; x < sourceTexture.width - 1; x++)
+        {
+            for (int y = 1; y < sourceTexture.height - 1; y++)
+            {
+                float sum = 0;
+                sum += -1 * copyTexture.GetPixel(x - 1, y - 1).grayscale + -1 * copyTexture.GetPixel(x, y - 1).grayscale + -1 * copyTexture.GetPixel(x + 1, y - 1).grayscale;
+                sum += -1 * copyTexture.GetPixel(x - 1, y).grayscale + 8 * copyTexture.GetPixel(x, y).grayscale + -1 * copyTexture.GetPixel(x + 1, y).grayscale;
+                sum += -1 * copyTexture.GetPixel(x - 1, y + 1).grayscale + -1 * copyTexture.GetPixel(x, y + 1).grayscale + -1 * copyTexture.GetPixel(x + 1, y + 1).grayscale;
+
+                float value = Mathf.Clamp(sum, 0.0f, 1.0f);
+                laplacianTexture.SetPixel(x, y, new Color(value, value, value, 1.0f));
+            }
+        }
+        laplacianTexture.Apply();
+
+        // Combine the original and sharpened textures based on the edge line width
+        Texture2D sharpenedTexture = new Texture2D(sourceTexture.width, sourceTexture.height);
+        for (int x = 0; x < sourceTexture.width; x++)
+        {
+            for (int y = 0; y < sourceTexture.height; y++)
+            {
+                Color originalPixel = sourceTexture.GetPixel(x, y);
+                Color laplacianPixel = laplacianTexture.GetPixel(x, y);
+
+                float edgeValue = laplacianPixel.r;
+                float edgeWidth = Mathf.Clamp01(edgeValue * edgeLineWidth);
+
+                float r = Mathf.Lerp(originalPixel.r, laplacianPixel.r, edgeWidth);
+                float g = Mathf.Lerp(originalPixel.g, laplacianPixel.g, edgeWidth);
+                float b = Mathf.Lerp(originalPixel.b, laplacianPixel.b, edgeWidth);
+
+                sharpenedTexture.SetPixel(x, y, new Color(r, g, b, 1.0f));
+            }
+        }
+        sharpenedTexture.Apply();
+        return sharpenedTexture;
+    }
+}

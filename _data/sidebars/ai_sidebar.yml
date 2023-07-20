@@ -265,6 +265,10 @@ entries:
     - title: Jupyter notebook
       url: /sample_ipynb.html
       output: web, pdf
+
+    - title: Auto Capture(cs script)
+      url: /AutoCapture.cs.html
+      output: web, pdf
       
   - title: Tag archives
     output: web
