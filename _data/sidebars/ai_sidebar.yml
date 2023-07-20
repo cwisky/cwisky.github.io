@@ -262,6 +262,10 @@ entries:
       url: /machine_learning.html
       output: web, pdf
 
+    - title: Jupyter notebook
+      url: /sample_ipynb.md
+      output: web, pdf
+      
   - title: Tag archives
     output: web
     folderitems:
