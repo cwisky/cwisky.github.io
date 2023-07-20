@@ -263,7 +263,7 @@ entries:
       output: web, pdf
 
     - title: Jupyter notebook
-      url: /sample_ipynb.md
+      url: /sample_ipynb.html
       output: web, pdf
       
   - title: Tag archives
