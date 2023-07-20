@@ -1,5 +1,5 @@
 ---
-title: "Jupyter notebook 파일을 md 파일 포맷으로 웹페이지로 보기"
+title: "Jupyter notebook 파일(*.md)을 웹페이지로 보기"
 keywords: sample homepage
 tags: [getting_started]
 sidebar: ai_sidebar
