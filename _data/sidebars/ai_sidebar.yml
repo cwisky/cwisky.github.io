@@ -267,7 +267,7 @@ entries:
       output: web, pdf
 
     - title: Auto Capture(cs script)
-      url: /AutoCapture.cs.html
+      url: /autocapture_cs.html
       output: web, pdf
       
   - title: Tag archives
