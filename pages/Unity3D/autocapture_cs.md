@@ -3,8 +3,8 @@ title: Auto Capture in Unity3D
 keywords: cs scripts
 summary: "지정된 배경 이미지 위에 컵 모델을 올리고 컵을 회전하면서 한개의 모델당 20개의 2D 이미지를 캡쳐하면서 동시에 640x480 크기의 이미지 중에서 컵 모델이 차지하는 영역을 YOLOv5 Label 형식에 따라 텍스트 파일을 생성한다"
 sidebar: ai_sidebar
-permalink: auto_capture.cs.html
-folder: Unity3D
+permalink: autocapture_cs.html
+folder: unity3d
 ---
 
 using System.Collections;
