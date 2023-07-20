@@ -1,3 +1,13 @@
+---
+title: "Jupyter notebook 파일을 md 파일 포맷으로 변환해서 웹페이지로 보기"
+keywords: sample homepage
+tags: [getting_started]
+sidebar: mydoc_sidebar
+permalink: sample_ipynb.html
+summary: These brief instructions will help you get started quickly with the theme. The other topics in this help provide additional information and detail about working with other aspects of this theme and Jekyll.
+---
+
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
