@@ -141,10 +141,12 @@ _____
 
 ## 코드 들여쓰기
   - 문장 왼족에 4개의 공백문자가 있을 때 들여쓰기 됨
-  - 행 사이에는 빈 라인이 있어야 줄바꿈이 정상 작동함. 혹은 문장의 중간이나 끝에 3개의 이상의 공백이 있으면 줄바꿈된다
+  - 행 사이에는 빈 라인이 있어야 줄바꿈이 정상 작동함.
 
-aaaaaaaaaaaaaaaaaaaaaaaaaaa   
-    bbbbbbbbbbbbbbbbbbbbbbbbb   
+aaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+    bbbbbbbbbbbbbbbbbbbbbbbbb
+    
     ccccccccccccccccccccccc   
     
 
