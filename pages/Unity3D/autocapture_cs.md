@@ -6,8 +6,8 @@ sidebar: ai_sidebar
 permalink: autocapture_cs.html
 folder: unity3d
 ---
-<pre>
-<code>
+
+'''cs
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -647,5 +647,4 @@ public class AutoCapture : MonoBehaviour
         return sharpenedTexture;
     }
 }
-</code>
-</pre>
+'''
