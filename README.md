@@ -210,7 +210,7 @@ __double underscores__
 
 ## 이미지
 <img src="https://cwisky.github.io/images/markdown.png"  >   
-![Alt text](/images/markdown.png)   
+![Alt text](https://cwisky.github.io/images/markdown.png)     
 ![Alt text](/path/to/img.jpg "optional title")    
 
 
