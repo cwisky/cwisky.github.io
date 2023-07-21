@@ -6,7 +6,8 @@ sidebar: ai_sidebar
 permalink: autocapture_cs.html
 folder: unity3d
 ---
-
+<pre>
+<code>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -625,9 +626,9 @@ public class AutoCapture : MonoBehaviour
 
         // Combine the original and sharpened textures based on the edge line width
         Texture2D sharpenedTexture = new Texture2D(sourceTexture.width, sourceTexture.height);
-        for (int x = 0; x < sourceTexture.width; x++)
+        for (int x = 0; x <pre sourceTexture.width; x++)
         {
-            for (int y = 0; y < sourceTexture.height; y++)
+            for (int y = 0; y <code sourceTexture.height; y++)
             {
                 Color originalPixel = sourceTexture.GetPixel(x, y);
                 Color laplacianPixel = laplacianTexture.GetPixel(x, y);
@@ -646,3 +647,5 @@ public class AutoCapture : MonoBehaviour
         return sharpenedTexture;
     }
 }
+</code>
+</pre>
