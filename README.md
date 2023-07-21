@@ -94,7 +94,15 @@ permalink : 파일명에 확장자는 .html 을 사용한다
 
 ### [새 페이지 추가]
   
-pages 디렉토리 안에 하위 디렉토리 생성, 그 안에 하위 디렉토리 혹은 페이지 파일 생성
+pages 디렉토리 안에 html, md 파일을 저장하거나, pages 아래에 하위 디렉토리 생성, 그 안에 하위 디렉토리 혹은 페이지 파일 생성   
+html, md 파일은 페이지 빌드시 top navigation, sidebar, page 이들 3가지 요소가 결합되어 하나의 완전한 html 문서가 생성된다   
+각 페이지(html, md)는 frontmatter를 선언하여 페이지에 연결될 topnav, sidebar가 결정된다   
+확장자가 md 이더라도 최종적으로 html 문서로 완성되기 때문에 링크 등에 사용할 때는 html 확장자를 사용해야 한다
+Jupyter notebook 파일(ipynb)을 웹문서로 게시할 때는 juypter notebook에서 md 포맷으로 다운로드하여 상단에 frontmatter를 추가하면 된다
+소스파일을 웹문서로 게시할 때는 상단에 frontmatter 를 추가하고 소스 코드 부분은 ``` ```으로 감싸주면 아래와 같은 형태가 된다   
+```python
+파이썬 프로그램 코드
+```
 
 ### [Top navigation 설정]
   
