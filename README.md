@@ -188,7 +188,7 @@ public class BootSpringBootApplication {
   * [Google](http://www.google.com "구글 바로가기")   
 
 ### 내부참조 링크   
-  [마크다운 문법 소개 처음으로 가기](#마크다운-간단-문법-소개)   
+  [마크다운 문법 소개 처음으로 가기](1)   
 
 ## 강조
 *sing asterisks*   
