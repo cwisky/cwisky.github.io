@@ -179,7 +179,10 @@ public class BootSpringBootApplication {
 }
 ```
 
-## 링크
+## 링크   
+### 인라인 주소 삽입   
+\[Google]\(http://www.google.com)   
+[Google](http://www.google.com)  
 
 ## 강조
 *sing asterisks*   
