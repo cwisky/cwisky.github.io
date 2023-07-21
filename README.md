@@ -184,9 +184,8 @@ public class BootSpringBootApplication {
   * http:// 혹은 https:// 으로 시작되는 URL을 입력하면 자동으로 링크가 설정됨   
   * http://google.com   
   * [Google](http://www.google.com)   
-  * [Google](http://www.google.com "구글 바로가기")
-  * [구글바로가기]:http://www.google.com
-  * [구글바로가기]:http://www.google.com "google 사이트로 이동합니다"   
+  * [Google](http://www.google.com "구글 바로가기")   
+
 
 ### 참조 링크   
 \[id를 설정할 행의 텍스트]\[id]
