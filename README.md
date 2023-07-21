@@ -209,9 +209,7 @@ __double underscores__
 
 
 ## 이미지
-<img src="https://cwisky.github.io/images/markdown.png"  >   
-![마크다운 아이콘](https://github.com/cwisky/cwisky.github.io/blob/main/images/markdown.png)     
-![Alt text](/path/to/img.jpg "optional title")    
+<img src="https://cwisky.github.io/images/markdown.png"  alt="마크다운 로고" title="마크다운 로고>   
 
 
 ## 줄바꿈
