@@ -169,19 +169,18 @@ _____
 ## 링크
 
 ## 강조
-*sing asterisks*
-
-_single underscores_
-
-**double asterisks**
-
-__double underscores__
-
-~~cancle line~~
+*sing asterisks*   
+_single underscores_   
+**double asterisks**   
+__double underscores__   
+~~cancle line~~   
 
 
 ## 이미지
 <img src=""  >
+![Alt text](/path/to/img.jpg)   
+![Alt text](/path/to/img.jpg "optional title"   
+
 
 ## 줄바꿈
 문장의 중간이나 끝에 공백 3개 이상이 이어지면 줄바꿈된다   
