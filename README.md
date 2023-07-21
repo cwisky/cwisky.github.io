@@ -151,6 +151,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaa
     
 
 ## 코드블럭
+코드 전체를 \`\`\` 으로 감싸준다   
 ```java
 public class BootSpringBootApplication {
   public static void main(String[] args) {
@@ -179,7 +180,7 @@ __double underscores__
 ## 이미지
 <img src=""  >
 ![Alt text](/path/to/img.jpg)   
-![Alt text](/path/to/img.jpg "optional title"   
+![Alt text](/path/to/img.jpg "optional title")    
 
 
 ## 줄바꿈
