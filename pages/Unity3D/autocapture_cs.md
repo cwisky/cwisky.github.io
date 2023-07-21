@@ -20,7 +20,7 @@ using UnityEditor;
 using System.Text.RegularExpressions;
 
 
-public class AutoCapture : MonoBehaviour
+public class AutoCapture : MonoBehaviour 
 {
     public Camera mainCamera; // the main camera in the scene
     public Light directionalLight;
