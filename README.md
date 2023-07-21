@@ -180,15 +180,13 @@ public class BootSpringBootApplication {
 ```
 
 ## 링크   
-### 인라인 주소 삽입   
   * http:// 혹은 https:// 으로 시작되는 URL을 입력하면 자동으로 링크가 설정됨   
   * http://google.com   
   * [Google](http://www.google.com)   
   * [Google](http://www.google.com "구글 바로가기")   
 
-
-### 참조 링크   
-\[id를 설정할 행의 텍스트]\[id]
+### 내부참조 링크   
+  [보여질 텍스트](#heading-string)   
 
 ## 강조
 *sing asterisks*   
