@@ -1,5 +1,5 @@
 # cwisky.github.io
-마크다운 문법 : https://gist.github.com/ihoneymon/652be052a0727ad59601
+[마크다운 문법 참고] https://gist.github.com/ihoneymon/652be052a0727ad59601
 <pre>
 [사이드바 사용하기]
 
