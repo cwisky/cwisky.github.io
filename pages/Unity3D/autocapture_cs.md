@@ -7,7 +7,8 @@ permalink: autocapture_cs.html
 folder: unity3d
 ---
 
-'''cs
+<pre>
+<code>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -647,4 +648,5 @@ public class AutoCapture : MonoBehaviour
         return sharpenedTexture;
     }
 }
-'''
+</code>
+</pre>
