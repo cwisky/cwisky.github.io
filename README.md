@@ -184,6 +184,9 @@ public class BootSpringBootApplication {
 \[Google]\(http://www.google.com)   
 [Google](http://www.google.com)  
 
+### 참조 링크   
+\[id를 설정할 행의 텍스트]\[id]
+
 ## 강조
 *sing asterisks*   
 _single underscores_   
