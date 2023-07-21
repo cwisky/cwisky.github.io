@@ -1,5 +1,5 @@
 # cwisky.github.io
-Jekyll Documentation Theme 사용법 정리
+## Jekyll Documentation Theme 사용법 정리
 
 [마크다운 문법 참고] (https://gist.github.com/ihoneymon/652be052a0727ad59601)
 <pre>
