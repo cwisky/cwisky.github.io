@@ -114,6 +114,8 @@ external_url : 외부 리소스 링크 url
 topnav : single links
 topnav_dropdowns : dropdown menus 표현
 
+<hr/>
+  
 ### [Markdown]
   
 Github.com 의 마크다운과 같지만 리스트를 표현할 때 넘버링 숫자와 아이템 사이에 공백문자 2개가 필요함
