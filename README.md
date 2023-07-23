@@ -200,12 +200,12 @@ public class BootSpringBootApplication {
 
 ### 내부참조 링크   
 - \# 공백 오른쪽에 참조할 제목을 적되 제목에 포함된 공백문자는 '-'으로 대체한다
--  [마크다운 문법 소개 처음으로 가기](#마크다운-간단-문법-소개)   
+- [마크다운 문법 소개 처음으로 가기](#마크다운-간단-문법-소개)   
 
 ## 강조
-*sing asterisks*   
-_single underscores_   
-**double asterisks**   
+- \*sing asterisks\*   --> *sing asterisks* 
+- \_single underscores\_   --> _single underscores_
+- \*\*double asterisks\*\*   --> **double asterisks**   
 __double underscores__   
 ~~cancle line~~   
 
