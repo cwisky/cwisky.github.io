@@ -217,10 +217,10 @@ public class BootSpringBootApplication {
 - [Google](http://www.google.com)   
 - [Google](http://www.google.com "구글 바로가기")   
 
-### 아이디를 사용하는 링크
-- \[보여질 문자열][아이디]
+### 아이디를 사용하여 보여지는 문자열 표시하기
+- \[보여질 문자열][아이디]  형식으로 아이디를 지정하고 아래처럼 아이디를 사용하여 보여질 문자열을 표시한다
 - \[아이디]: URL "Optional Title"
-- [google바로가기][google]
+- [google 바로가기][google]
 - [google]:http://google.com "google사이트로 이동"
 
 ### 내부참조 링크   
