@@ -192,12 +192,11 @@ ___
 
 ## 코드 들여쓰기
   - 문장 왼쪽에 4개의 공백문자가 있을 때 들여쓰기 됨
-  - 행 사이에는 빈 라인이 있어야 줄바꿈이 정상 작동함.
+  - 들여쓰기 시작하는 행 위에는 빈 라인이 있어야 줄바꿈이 정상 작동함.
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-    bbbbbbbbbbbbbbbbbbbbbbbbb
-    
+    bbbbbbbbbbbbbbbbbbbbbbb
     ccccccccccccccccccccccc   
     
 
