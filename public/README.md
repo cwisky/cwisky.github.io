@@ -1,0 +1,6 @@
+# public 안의 파일 다운로드하기
+- public/BostonHousing.csv 파일을 웹브라우저에서 다운로드하기 위해서는 ...
+- https://cwisky.github.io/blob/main/public/BostonHousing.csv
+- 혹은 아래처럼...
+- https://cwisky.github.io/public/BostonHousing.csv
+- 
