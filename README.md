@@ -236,6 +236,8 @@ public class BootSpringBootApplication {
 
 
 ## 이미지
+* github 개인 폼페이지인 https://cwisky.github.io/ 안에 있는 images/markdown.png 파일을 표시하려면
+* \<img src="https://cwisky.github.io/images/markdown.png"  alt="마크다운 로고" title="마크다운 로고"\>   
 <img src="https://cwisky.github.io/images/markdown.png"  alt="마크다운 로고" title="마크다운 로고">   
 
 
