@@ -41,15 +41,16 @@
       background-color: #005fa3;
     }
 
-    /* 드롭다운 하위 메뉴 */
+    /* ✅ 투명 배경 적용된 드롭다운 */
     nav ul li ul {
       display: none;
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: #2196f3;
+      background-color: rgba(33, 150, 243, 0.85); /* 투명도 적용 */
       min-width: 160px;
-      z-index: 1000;
+      z-index: 999;
+      backdrop-filter: blur(4px); /* 선택적으로 배경 흐림 효과 */
     }
 
     nav ul li:hover ul {
