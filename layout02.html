@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>브라우저 크기에 맞는 레이아웃</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    .fullscreen {
+      width: 100vw;
+      height: 100vh;
+      background-color: #e3f2fd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3vw;
+    }
+
+    p {
+      font-size: 1.2vw;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fullscreen">
+    <h1>🖥️ 브라우저에 딱 맞는 전체 페이지</h1>
+    <p>이 페이지는 width: <code>100vw</code> & height: <code>100vh</code>를 사용합니다.</p>
+  </div>
+
+</body>
+</html>
