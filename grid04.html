@@ -1,0 +1,24 @@
+<style>
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+.card {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<div class="card-grid">
+  <div class="card">카드 A</div>
+  <div class="card">카드 B</div>
+  <div class="card">카드 C</div>
+</div>
