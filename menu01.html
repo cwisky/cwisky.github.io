@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>동적 콘텐츠 로딩 웹페이지</title>
+  <title>드롭다운 클릭 후 자동 닫힘</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -41,6 +41,7 @@
       background-color: #0056b3;
     }
 
+    /* 드롭다운 메뉴: 기본은 숨김 */
     nav ul li ul {
       position: absolute;
       top: 100%;
@@ -52,7 +53,7 @@
       z-index: 1000;
     }
 
-    nav ul li:hover ul {
+    nav ul li.open ul {
       display: flex;
     }
 
@@ -83,7 +84,7 @@
 <body>
 
   <nav>
-    <ul>
+    <ul id="main-menu">
       <li>
         <a href="#">메뉴 1</a>
         <ul>
@@ -104,14 +105,28 @@
   <div id="content">
     <div class="content-box">
       <h2>환영합니다!</h2>
-      <p>메뉴의 하위 항목을 클릭하면 외부 HTML 페이지가 이 영역에 표시됩니다.</p>
+      <p>하위 메뉴를 클릭하면 외부 HTML이 이곳에 로드되며, 드롭다운은 자동으로 닫힙니다.</p>
     </div>
   </div>
 
   <script>
     const links = document.querySelectorAll('a[data-page]');
     const contentArea = document.getElementById("content");
+    const menuItems = document.querySelectorAll("#main-menu > li");
 
+    // 드롭다운 열기/닫기 이벤트 처리
+    menuItems.forEach(item => {
+      item.addEventListener("mouseenter", () => {
+        menuItems.forEach(i => i.classList.remove("open")); // 다른 메뉴 닫기
+        item.classList.add("open");
+      });
+
+      item.addEventListener("mouseleave", () => {
+        item.classList.remove("open");
+      });
+    });
+
+    // 콘텐츠 로드 + 드롭다운 닫기
     links.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
@@ -124,6 +139,7 @@
           })
           .then(html => {
             contentArea.innerHTML = `<div class="content-box">${html}</div>`;
+            menuItems.forEach(i => i.classList.remove("open")); // 클릭 시 메뉴 닫기
           })
           .catch(error => {
             contentArea.innerHTML = `<div class="content-box"><p class="error">⚠️ ${error.message}</p></div>`;
