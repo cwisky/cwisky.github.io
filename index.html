@@ -51,12 +51,17 @@
       min-width: 160px;
       z-index: 999;
       backdrop-filter: blur(1px); /* 선택적으로 배경 흐림 효과 */
+      border-radius: 6px; /* ✅ 둥근 모서리 추가 */
     }
 
     nav ul li:hover ul {
       display: block;
     }
 
+    nav ul li ul li a {
+       border-radius: 4px; /* (선택) 각 항목도 둥글게 */
+    }
+    
     nav ul li ul li a:hover {
       background-color: #64b5f6;
     }
