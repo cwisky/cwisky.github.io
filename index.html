@@ -47,11 +47,12 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: rgba(33, 150, 243, 0.60); /* 불투명도 적용 */
+      background-color: rgba(33, 150, 243, 0.85); /* 투명 배경 */
       min-width: 160px;
       z-index: 999;
-      backdrop-filter: blur(1px); /* 선택적으로 배경 흐림 효과 */
-      border-radius: 6px; /* ✅ 둥근 모서리 추가 */
+      border-radius: 6px; /* ✅ 둥근 모서리 */
+      backdrop-filter: blur(4px); /* (선택) 배경 흐림 효과 */
+      overflow: hidden; /* 자식 요소가 border-radius 밖으로 튀어나오지 않도록 */
     }
 
     nav ul li:hover ul {
@@ -59,7 +60,10 @@
     }
 
     nav ul li ul li a {
-       border-radius: 4px; /* (선택) 각 항목도 둥글게 */
+      padding: 10px 16px;
+      border-radius: 0; /* 항목은 각지게 두되 */
+      display: block;
+      transition: background-color 0.2s;
     }
     
     nav ul li ul li a:hover {
