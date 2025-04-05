@@ -1,0 +1,17 @@
+[
+  {
+    "name": "홍길동",
+    "email": "hong@example.com",
+    "age": 28
+  },
+  {
+    "name": "김영희",
+    "email": "kim@example.com",
+    "age": 24
+  },
+  {
+    "name": "이철수",
+    "email": "lee@example.com",
+    "age": 30
+  }
+]
