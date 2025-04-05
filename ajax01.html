@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AJAX (Asynchronous JavaScript and XML) 개념 및 실습</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      color: #007acc;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f1f1f1;
+      border-radius: 8px;
+    }
+
+    code {
+      display: block;
+      background: #eee;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>📡 AJAX 개념 및 예제</h1>
+    <p><strong>AJAX</strong>는 JavaScript를 사용하여 서버와 비동기적으로 데이터를 주고받는 기술입니다. 페이지 전체를 새로 고치지 않고 필요한 데이터만 불러올 수 있습니다.</p>
+
+    <h2>🧪 예제: JSON 데이터 불러오기</h2>
+    <p>버튼을 클릭하면 <code>get_data.json</code> 파일에서 사용자 정보를 불러와 아래에 표시합니다.</p>
+
+    <button id="loadBtn">데이터 불러오기</button>
+
+    <div id="result">📭 아직 불러온 데이터가 없습니다.</div>
+  </div>
+
+  <script>
+    document.getElementById("loadBtn").addEventListener("click", () => {
+      fetch("get_data.json")
+        .then(response => {
+          if (!response.ok) throw new Error("데이터를 불러오는 데 실패했습니다.");
+          return response.json();
+        })
+        .then(data => {
+          const html = `
+            <h3>👤 사용자 정보</h3>
+            <ul>
+              <li><strong>이름:</strong> ${data.name}</li>
+              <li><strong>이메일:</strong> ${data.email}</li>
+              <li><strong>나이:</strong> ${data.age}</li>
+            </ul>
+          `;
+          document.getElementById("result").innerHTML = html;
+        })
+        .catch(error => {
+          document.getElementById("result").innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
+        });
+    });
+  </script>
+
+</body>
+</html>
