@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JavaScript 소개 및 기본 문법</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f6f8;
+      color: #222;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: #ffffff;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #007acc;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-family: Consolas, monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💻 JavaScript 소개 및 기본 문법</h1>
+
+  <section>
+    <h2>📌 1. JavaScript란?</h2>
+    <ul>
+      <li>웹 페이지에 **동적인 기능**을 추가하는 프로그래밍 언어</li>
+      <li>HTML, CSS와 함께 **웹의 3대 핵심 기술**</li>
+      <li>사용자 입력 처리, 애니메이션, 데이터 처리 등 가능</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🎯 2. JavaScript의 역할</h2>
+    <ul>
+      <li>버튼 클릭, 폼 제출 등 **이벤트 처리**</li>
+      <li>HTML 요소에 접근하고 **동적으로 변경**</li>
+      <li>서버와 통신 (AJAX, API 호출)</li>
+      <li>유효성 검사, 계산, 애니메이션 등 다양</li>
+    </ul>
+    <code>
+// 예: 버튼 클릭 시 배경색 변경
+document.querySelector("button").addEventListener("click", () => {
+  document.body.style.backgroundColor = "lightblue";
+});
+    </code>
+  </section>
+
+  <section>
+    <h2>🔤 3. 변수 선언 (var, let, const)</h2>
+    <ul>
+      <li><code>var</code>: 오래된 방식, 범위 제한 약함</li>
+      <li><code>let</code>: 변경 가능한 변수 (블록 범위)</li>
+      <li><code>const</code>: 상수, 변경 불가</li>
+    </ul>
+    <code>
+var name = "Alice";
+let age = 25;
+const pi = 3.14;
+    </code>
+  </section>
+
+  <section>
+    <h2>📦 4. 주요 자료형 (Data Types)</h2>
+    <ul>
+      <li><strong>문자열(String)</strong>: "Hello", 'JavaScript'</li>
+      <li><strong>숫자(Number)</strong>: 10, 3.14</li>
+      <li><strong>불리언(Boolean)</strong>: true, false</li>
+      <li><strong>undefined</strong>: 값이 정의되지 않음</li>
+      <li><strong>null</strong>: 명시적인 '없음'</li>
+      <li><strong>객체(Object)</strong>: 키-값 쌍의 집합</li>
+      <li><strong>배열(Array)</strong>: 여러 값을 순서대로 저장</li>
+    </ul>
+    <code>
+let name = "철수";           // 문자열
+let score = 90.5;           // 숫자
+let isPassed = true;        // 불리언
+let user = { name: "영희", age: 22 };  // 객체
+let fruits = ["사과", "바나나", "포도"]; // 배열
+    </code>
+  </section>
+
+  <section>
+    <h2>💡 5. typeof 연산자</h2>
+    <ul>
+      <li>값의 자료형을 확인할 수 있는 연산자</li>
+    </ul>
+    <code>
+console.log(typeof "hello");  // string
+console.log(typeof 123);      // number
+console.log(typeof true);     // boolean
+console.log(typeof null);     // object (주의!)
+console.log(typeof undefined); // undefined
+    </code>
+  </section>
+
+</body>
+</html>
