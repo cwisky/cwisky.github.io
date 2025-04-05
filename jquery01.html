@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>jQuery JSON 불러오기 예제</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+    }
+    #result {
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    button {
+      padding: 10px 16px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📦 jQuery로 JSON 불러오기</h1>
+
+  <button id="loadBtn">JSON 데이터 불러오기</button>
+
+  <div id="result">
+    🔄 데이터를 불러오려면 버튼을 클릭하세요.
+  </div>
+
+  <script>
+    $("#loadBtn").click(function () {
+      $.getJSON("data.json", function (data) {
+        const html = `
+          <h3>👤 사용자 정보</h3>
+          <ul>
+            <li><strong>이름:</strong> ${data.name}</li>
+            <li><strong>이메일:</strong> ${data.email}</li>
+            <li><strong>나이:</strong> ${data.age}</li>
+          </ul>
+        `;
+        $("#result").html(html);
+      }).fail(function () {
+        $("#result").html("<p style='color:red;'>❌ 데이터를 불러오는 데 실패했습니다.</p>");
+      });
+    });
+  </script>
+
+</body>
+</html>
