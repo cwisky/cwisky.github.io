@@ -1,0 +1,24 @@
+<style>
+.layout {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "nav main"
+    "footer footer";
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  height: 100vh;
+}
+.header   { grid-area: header; background: #90caf9; padding: 10px; }
+.nav      { grid-area: nav;    background: #ffe082; padding: 10px; }
+.main     { grid-area: main;   background: #c8e6c9; padding: 10px; }
+.footer   { grid-area: footer; background: #b0bec5; padding: 10px; }
+</style>
+
+<div class="layout">
+  <div class="header">헤더</div>
+  <div class="nav">사이드 메뉴</div>
+  <div class="main">본문</div>
+  <div class="footer">푸터</div>
+</div>
