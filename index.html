@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Pages로 정적 웹사이트 만들기</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    ol {
+      padding-left: 20px;
+    }
+    code {
+      background: #eee;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>GitHub Pages로 정적 웹사이트 만들기</h1>
+    <p>다음은 HTML, CSS, JavaScript로 만든 정적 웹사이트를 GitHub Pages를 통해 무료로 배포하는 방법입니다.</p>
+
+    <h2>✅ 단계별 절차</h2>
+    <ol>
+      <li><strong>GitHub 저장소 만들기</strong><br />
+        GitHub에 로그인 후 <code>New repository</code>를 클릭하고, 공개(Public) 저장소를 생성합니다.
+      </li>
+
+      <li><strong>웹 파일 준비</strong><br />
+        <code>index.html</code> 파일을 포함한 웹사이트 파일을 준비합니다.
+      </li>
+
+      <li><strong>파일 업로드</strong><br />
+        웹 프로젝트 파일을 GitHub 저장소에 업로드하거나 Git을 사용해 푸시합니다.
+      </li>
+
+      <li><strong>GitHub Pages 설정</strong><br />
+        저장소 페이지에서 <code>Settings > Pages</code>로 이동한 후,<br />
+        <strong>Branch:</strong> <code>main</code>, <strong>Directory:</strong> <code>/(root)</code>를 선택합니다.
+      </li>
+
+      <li><strong>웹사이트 접속</strong><br />
+        잠시 기다리면 배포 주소가 생성되며, 아래와 같은 주소로 접속할 수 있습니다:<br />
+        <code>https://사용자이름.github.io/저장소이름/</code>
+      </li>
+    </ol>
+
+    <h2>📌 주의사항</h2>
+    <ul>
+      <li>반드시 <code>index.html</code> 파일이 있어야 첫 페이지로 인식됩니다.</li>
+      <li>정적 웹사이트만 가능하며 서버 처리는 지원하지 않습니다.</li>
+      <li>저장소 이름을 <code>사용자이름.github.io</code>로 만들면 루트 도메인에서 실행됩니다.</li>
+    </ul>
+
+    <footer>
+      © 2025 GitHub Pages Tutorial – Created for Web Programming Beginners
+    </footer>
+  </div>
+</body>
+</html>
