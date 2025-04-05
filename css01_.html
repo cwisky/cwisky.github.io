@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS 소개 및 적용 방식</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f5f8fa;
+      color: #222;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: white;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+    h2 {
+      color: #0077cc;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎨 CSS 소개 및 적용 방식</h1>
+
+  <section>
+    <h2>📌 1. CSS란 무엇인가?</h2>
+    <ul>
+      <li>CSS (Cascading Style Sheets): 웹 페이지의 **스타일과 레이아웃을 정의**</li>
+      <li>HTML은 구조, CSS는 디자인!</li>
+      <li>텍스트 색상, 배경, 여백, 정렬 등 시각적 요소 조정</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📍 2. CSS 적용 방식 3가지</h2>
+    <ul>
+      <li><strong>Inline Style</strong>: HTML 요소 내부에 직접 스타일 작성</li>
+      <li><strong>Internal Style</strong>: HTML 문서의 `<head>` 영역에 `<style>` 태그로 작성</li>
+      <li><strong>External Style</strong>: 별도 `.css` 파일로 분리하여 연결</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>✏️ 3. Inline Style (인라인 방식)</h2>
+    <ul>
+      <li>요소에 직접 `style` 속성을 사용</li>
+      <li>우선순위가 가장 높지만 유지보수 어려움</li>
+    </ul>
+    <code>
+&lt;p style="color: red; font-weight: bold;"&gt;
+  인라인 스타일입니다.
+&lt;/p&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>📄 4. Internal Style (내부 방식)</h2>
+    <ul>
+      <li>HTML 문서 내 `<style>` 태그 안에 CSS 작성</li>
+      <li>한 문서 내 스타일을 중앙관리 가능</li>
+    </ul>
+    <code>
+&lt;head&gt;
+  &lt;style&gt;
+    p {
+      color: blue;
+      font-size: 18px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p&gt;내부 스타일입니다.&lt;/p&gt;
+&lt;/body&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>🗂️ 5. External Style (외부 방식)</h2>
+    <ul>
+      <li>CSS를 별도 파일에 저장하고 `<link>`로 연결</li>
+      <li>여러 HTML 파일에서 재사용 가능</li>
+      <li>**가장 추천되는 방식** (유지보수 용이)</li>
+    </ul>
+    <code>
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+
+&lt;!-- styles.css 파일 내용 예시 --&gt;
+p {
+  color: green;
+  font-style: italic;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>✅ 6. 정리 요약</h2>
+    <ul>
+      <li><strong>Inline</strong>: 빠르지만 비추천</li>
+      <li><strong>Internal</strong>: 작은 프로젝트에 적합</li>
+      <li><strong>External</strong>: 유지보수가 필요한 대부분의 프로젝트에 적합</li>
+    </ul>
+  </section>
+
+</body>
+</html>
