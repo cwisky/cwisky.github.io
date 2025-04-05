@@ -1,0 +1,28 @@
+<style>
+.grid-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.grid-box > div {
+  background: #fce4ec;
+  padding: 20px;
+  text-align: center;
+  border-radius: 6px;
+}
+.grid-box .wide {
+  grid-column: span 2;
+}
+.grid-box .tall {
+  grid-row: span 2;
+}
+</style>
+
+<div class="grid-box">
+  <div>1</div>
+  <div class="wide">2 (가로 2칸)</div>
+  <div>3</div>
+  <div class="tall">4 (세로 2칸)</div>
+  <div>5</div>
+  <div>6</div>
+</div>
