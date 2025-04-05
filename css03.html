@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS 배경, 테두리, Flexbox 요약</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f3f5f8;
+      color: #222;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: white;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #0078d4;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎨 CSS 배경, 테두리, Flexbox 기본</h1>
+
+  <section>
+    <h2>🌈 1. 배경 (Background)</h2>
+    <ul>
+      <li><code>background-color</code>: 배경 색상</li>
+      <li><code>background-image</code>: 배경 이미지</li>
+      <li><code>background-repeat</code>: 반복 여부</li>
+      <li><code>background-size</code>: 크기 조정</li>
+      <li><code>background-position</code>: 위치 설정</li>
+    </ul>
+    <code>
+.box {
+  background-color: #e0f7fa;
+  background-image: url("bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>🧱 2. 테두리 (Border)</h2>
+    <ul>
+      <li><code>border</code>: 테두리 전체 설정</li>
+      <li><code>border-width</code>, <code>border-style</code>, <code>border-color</code></li>
+      <li><code>border-radius</code>: 테두리 둥글게</li>
+    </ul>
+    <code>
+.card {
+  border: 2px solid #4caf50;
+  border-radius: 8px;
+  padding: 20px;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>📦 3. Flexbox 기본 개념</h2>
+    <ul>
+      <li>요소를 <strong>가로 방향, 세로 방향 정렬</strong>에 유리하게 배치</li>
+      <li><code>display: flex;</code>로 부모 요소에 설정</li>
+      <li>축 정렬 속성:
+        <ul>
+          <li><code>justify-content</code>: 주 축 정렬 (가로)</li>
+          <li><code>align-items</code>: 교차 축 정렬 (세로)</li>
+          <li><code>flex-direction</code>: 방향 설정 (row, column)</li>
+        </ul>
+      </li>
+    </ul>
+    <code>
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>✅ Flexbox 정렬 예시</h2>
+    <code>
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 2px dashed #aaa;
+}
+    </code>
+    <p style="margin-top: 10px; font-size: 0.95em; color: #666;">
+      ※ 위 설정은 요소를 수평/수직 모두 중앙에 정렬합니다.
+    </p>
+  </section>
+
+</body>
+</html>
