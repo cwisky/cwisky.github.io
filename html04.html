@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form 입력 태그 요약</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f7f9fb;
+      color: #222;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 25px 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+    }
+    h2 {
+      color: #0077cc;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    code {
+      display: block;
+      background-color: #f1f1f1;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📝 Form 태그 내 입력 요소 요약</h1>
+
+  <section>
+    <h2>📌 1. &lt;form&gt; 태그란?</h2>
+    <ul>
+      <li>사용자 입력 데이터를 서버로 전송하는 폼 영역</li>
+      <li><code>action</code>, <code>method</code> 속성 포함</li>
+    </ul>
+    <code>
+&lt;form action="/submit" method="post"&gt;
+  ...입력 필드들...
+&lt;/form&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>✍️ 2. &lt;input&gt; 태그 - 다양한 타입</h2>
+    <ul>
+      <li><code>type="text"</code>: 일반 텍스트 입력</li>
+      <li><code>type="password"</code>: 비밀번호 입력 (숨김)</li>
+      <li><code>type="email"</code>: 이메일 형식 검사</li>
+      <li><code>type="number"</code>: 숫자만 입력</li>
+      <li><code>type="checkbox"</code>: 체크박스</li>
+      <li><code>type="radio"</code>: 라디오 버튼 (하나만 선택)</li>
+      <li><code>type="file"</code>: 파일 업로드</li>
+    </ul>
+    <code>
+&lt;input type="text" name="username"&gt;
+&lt;input type="password" name="password"&gt;
+&lt;input type="checkbox" name="agree"&gt; 동의
+&lt;input type="radio" name="gender" value="male"&gt; 남성
+&lt;input type="radio" name="gender" value="female"&gt; 여성
+&lt;input type="file" name="resume"&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>📝 3. &lt;textarea&gt; 태그</h2>
+    <ul>
+      <li>여러 줄 텍스트 입력을 위한 영역</li>
+      <li>행(<code>rows</code>), 열(<code>cols</code>) 설정 가능</li>
+    </ul>
+    <code>
+&lt;textarea name="comment" rows="4" cols="40"&gt;&lt;/textarea&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>🔽 4. &lt;select&gt; &amp; &lt;option&gt;</h2>
+    <ul>
+      <li>드롭다운 목록 구성</li>
+      <li><code>&lt;option&gt;</code>으로 항목 나열</li>
+    </ul>
+    <code>
+&lt;select name="country"&gt;
+  &lt;option value="kr"&gt;대한민국&lt;/option&gt;
+  &lt;option value="us"&gt;미국&lt;/option&gt;
+&lt;/select&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>🔘 5. &lt;button&gt; 태그</h2>
+    <ul>
+      <li>폼 전송 또는 일반 버튼으로 사용</li>
+      <li><code>type="submit"</code> (전송), <code>type="reset"</code> (초기화)</li>
+    </ul>
+    <code>
+&lt;button type="submit"&gt;제출&lt;/button&gt;
+&lt;button type="reset"&gt;초기화&lt;/button&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>🏷️ 6. &lt;label&gt; 태그</h2>
+    <ul>
+      <li>입력 필드의 설명을 연결해 접근성 향상</li>
+      <li><code>for</code> 속성은 해당 <code>id</code>와 일치</li>
+    </ul>
+    <code>
+&lt;label for="email"&gt;이메일:&lt;/label&gt;
+&lt;input type="email" id="email" name="email"&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>📋 7. 종합 예시</h2>
+    <code>
+&lt;form action="/submit" method="post"&gt;
+  &lt;label for="name"&gt;이름:&lt;/label&gt;
+  &lt;input type="text" id="name" name="name"&gt;&lt;br&gt;
+
+  &lt;label for="email"&gt;이메일:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;
+
+  &lt;label&gt;
+    &lt;input type="checkbox" name="agree"&gt; 이용약관 동의
+  &lt;/label&gt;&lt;br&gt;
+
+  &lt;button type="submit"&gt;전송하기&lt;/button&gt;
+&lt;/form&gt;
+    </code>
+  </section>
+
+</body>
+</html>
