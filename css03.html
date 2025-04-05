@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS 다양한 선택자 요약</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f6f8fa;
+      color: #222;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: #fff;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #0077cc;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎯 CSS 다양한 선택자 요약</h1>
+
+  <section>
+    <h2>📌 1. 기본 선택자</h2>
+    <ul>
+      <li><strong>전체 선택자</strong>: <code>*</code> → 모든 요소에 적용</li>
+      <li><strong>태그 선택자</strong>: <code>p</code>, <code>div</code> 등</li>
+      <li><strong>클래스 선택자</strong>: <code>.클래스명</code></li>
+      <li><strong>ID 선택자</strong>: <code>#아이디명</code></li>
+    </ul>
+    <code>
+* { margin: 0; padding: 0; }
+p { color: blue; }
+.container { width: 100%; }
+#header { background-color: lightgray; }
+    </code>
+  </section>
+
+  <section>
+    <h2>🔗 2. 결합자 선택자 (Combinators)</h2>
+    <ul>
+      <li><code>A B</code>: A 요소 안의 모든 B 요소 (자손 선택자)</li>
+      <li><code>A &gt; B</code>: A 요소의 **직계 자식** B 선택</li>
+      <li><code>A + B</code>: A 요소 **바로 다음 형제** B</li>
+      <li><code>A ~ B</code>: A 이후의 **모든 형제** B</li>
+    </ul>
+    <code>
+div p { color: red; }
+ul > li { font-weight: bold; }
+h1 + p { margin-top: 0; }
+h2 ~ p { color: gray; }
+    </code>
+  </section>
+
+  <section>
+    <h2>🧪 3. 속성 선택자</h2>
+    <ul>
+      <li><code>[속성]</code>: 해당 속성이 있는 요소</li>
+      <li><code>[속성="값"]</code>: 정확히 일치하는 경우</li>
+      <li><code>[속성^="값"]</code>: 값으로 시작</li>
+      <li><code>[속성$="값"]</code>: 값으로 끝남</li>
+      <li><code>[속성*="값"]</code>: 값 포함</li>
+    </ul>
+    <code>
+input[type="text"] { border: 1px solid #ccc; }
+a[href^="https"] { color: green; }
+img[alt$=".jpg"] { border-radius: 5px; }
+    </code>
+  </section>
+
+  <section>
+    <h2>🎯 4. 가상 클래스 선택자 (Pseudo-classes)</h2>
+    <ul>
+      <li><code>:hover</code> → 마우스를 올렸을 때</li>
+      <li><code>:focus</code> → 입력 필드 선택 시</li>
+      <li><code>:nth-child(n)</code> → n번째 자식</li>
+      <li><code>:first-child</code>, <code>:last-child</code></li>
+    </ul>
+    <code>
+a:hover { text-decoration: underline; }
+input:focus { outline: 2px solid blue; }
+li:nth-child(2) { color: red; }
+    </code>
+  </section>
+
+  <section>
+    <h2>🎨 5. 가상 요소 선택자 (Pseudo-elements)</h2>
+    <ul>
+      <li><code>::before</code>: 요소 앞에 콘텐츠 삽입</li>
+      <li><code>::after</code>: 요소 뒤에 콘텐츠 삽입</li>
+      <li><code>::first-line</code>: 첫 줄 스타일</li>
+    </ul>
+    <code>
+p::before {
+  content: "👉 ";
+  color: orange;
+}
+
+p::after {
+  content: " ✅";
+  color: green;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>📌 6. 선택자 조합 예시</h2>
+    <code>
+ul.menu > li:first-child a:hover {
+  color: crimson;
+  font-weight: bold;
+}
+    </code>
+    <p style="margin-top: 10px; font-size: 0.95em; color: #666;">
+      ※ 메뉴의 첫 번째 항목에 마우스를 올렸을 때 텍스트 강조
+    </p>
+  </section>
+
+</body>
+</html>
