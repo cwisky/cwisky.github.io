@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>반응형 웹 & 미디어쿼리</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f5f7fa;
+      color: #222;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: white;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #0078d4;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📱 반응형 웹 & 미디어쿼리 요약</h1>
+
+  <section>
+    <h2>🌐 1. 반응형 웹이란?</h2>
+    <ul>
+      <li>사용자의 <strong>화면 크기에 따라 자동으로 레이아웃이 조정</strong>되는 웹 디자인</li>
+      <li>PC, 태블릿, 스마트폰 등 <strong>다양한 디바이스에 최적화</strong></li>
+      <li>화면 확대 없이도 편리하게 콘텐츠 이용 가능</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>💡 2. 반응형 웹의 핵심 요소</h2>
+    <ul>
+      <li><code>viewport</code> 메타 태그 설정</li>
+      <li><strong>유동적인 크기</strong> (%, vw, vh 등)</li>
+      <li><strong>미디어 쿼리</strong>를 활용한 스타일 분기</li>
+    </ul>
+    <code>
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>🎯 3. 미디어 쿼리(Media Query)란?</h2>
+    <ul>
+      <li>화면 크기, 장치 종류에 따라 <strong>CSS 스타일을 다르게 적용</strong></li>
+      <li><code>@media</code> 키워드 사용</li>
+      <li>주로 <code>max-width</code>, <code>min-width</code>를 사용</li>
+    </ul>
+    <code>
+/* 화면 너비가 768px 이하일 때 */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>📐 4. 미디어쿼리 작성 예시</h2>
+    <code>
+/* 기본 스타일 (데스크탑) */
+.box {
+  width: 600px;
+  margin: auto;
+}
+
+/* 태블릿용 스타일 */
+@media (max-width: 992px) {
+  .box {
+    width: 90%;
+  }
+}
+
+/* 모바일용 스타일 */
+@media (max-width: 576px) {
+  .box {
+    width: 100%;
+    padding: 10px;
+  }
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>🔧 5. 미디어 속성 종류</h2>
+    <ul>
+      <li><code>width</code>: 뷰포트의 너비</li>
+      <li><code>height</code>: 뷰포트의 높이</li>
+      <li><code>orientation</code>: 방향 (portrait/landscape)</li>
+      <li><code>resolution</code>: 해상도 (dpi, dppx)</li>
+      <li><code>hover</code>: 마우스 포인터 여부</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>✅ 6. 정리 요약</h2>
+    <ul>
+      <li>반응형 웹은 다양한 화면 크기에 자동 적응</li>
+      <li>미디어 쿼리는 스타일을 화면 조건에 따라 변경</li>
+      <li>모바일 퍼스트 접근 방식 권장 (min-width부터 작성)</li>
+    </ul>
+  </section>
+
+</body>
+</html>
