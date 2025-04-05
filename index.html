@@ -2,37 +2,39 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>학습용 웹 메뉴 레이아웃</title>
+  <title>상단 메뉴 + 하위 콘텐츠 표시</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
       font-family: sans-serif;
       display: flex;
+      flex-direction: column;
       height: 100vh;
     }
 
-    /* 사이드/상단 메뉴 영역 */
+    /* 상단 메뉴바 */
     nav {
-      width: 250px;
       background-color: #007acc;
       color: white;
     }
 
     nav ul {
       list-style: none;
-      margin: 0;
-      padding: 0;
+      display: flex;
+      position: relative;
     }
 
-    nav > ul > li {
+    nav ul > li {
       position: relative;
     }
 
     nav a {
       display: block;
-      padding: 12px 16px;
+      padding: 14px 20px;
       text-decoration: none;
       color: white;
+      white-space: nowrap;
     }
 
     nav li:hover > a {
@@ -42,22 +44,26 @@
     /* 드롭다운 하위 메뉴 */
     nav ul li ul {
       display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
       background-color: #2196f3;
+      min-width: 160px;
+      z-index: 1000;
     }
 
-    nav ul li:hover > ul {
+    nav ul li:hover ul {
       display: block;
-      position: relative;
     }
 
     nav ul li ul li a:hover {
       background-color: #64b5f6;
     }
 
-    /* 콘텐츠 영역 */
+    /* 콘텐츠 표시 영역 */
     #content {
       flex: 1;
-      border-left: 2px solid #ddd;
+      border-top: 2px solid #ddd;
     }
 
     iframe {
@@ -132,7 +138,7 @@
   </div>
 
   <script>
-    // 모든 하위 메뉴 클릭 시 iframe에 로드
+    // 하위 메뉴 클릭 시 iframe에 로드
     document.querySelectorAll("a[data-page]").forEach(link => {
       link.addEventListener("click", function (e) {
         e.preventDefault();
