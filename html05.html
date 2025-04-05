@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML Table 태그 요약</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f2f4f8;
+      color: #212529;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: white;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #007acc;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧾 HTML Table 태그 및 하위 태그 요약</h1>
+
+  <section>
+    <h2>📌 1. &lt;table&gt; 태그란?</h2>
+    <ul>
+      <li>행(Row)과 열(Column) 구조로 데이터를 표현</li>
+      <li>표 전체를 감싸는 **컨테이너 역할**</li>
+    </ul>
+    <code>
+&lt;table&gt;
+  ...표 내용...
+&lt;/table&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>📋 2. 주요 하위 태그 정리</h2>
+    <ul>
+      <li><code>&lt;tr&gt;</code>: 테이블의 한 행 (Table Row)</li>
+      <li><code>&lt;td&gt;</code>: 일반 셀 (Table Data)</li>
+      <li><code>&lt;th&gt;</code>: 헤더 셀 (Table Header)</li>
+      <li><code>&lt;thead&gt;</code>: 표의 머리글 그룹 (Header Section)</li>
+      <li><code>&lt;tbody&gt;</code>: 표의 본문 영역 (Body Section)</li>
+      <li><code>&lt;tfoot&gt;</code>: 표의 바닥글 영역 (Footer Section)</li>
+      <li><code>colspan</code>, <code>rowspan</code>: 셀 병합 속성</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📌 3. 기본 구조 예시</h2>
+    <code>
+&lt;table border="1"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;이름&lt;/th&gt;
+      &lt;th&gt;나이&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;홍길동&lt;/td&gt;
+      &lt;td&gt;25&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;김영희&lt;/td&gt;
+      &lt;td&gt;30&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td colspan="2"&gt;총 2명&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>🔀 4. 셀 병합 속성</h2>
+    <ul>
+      <li><code>colspan</code>: 열 병합</li>
+      <li><code>rowspan</code>: 행 병합</li>
+    </ul>
+    <code>
+&lt;table border="1"&gt;
+  &lt;tr&gt;
+    &lt;td rowspan="2"&gt;이름&lt;/td&gt;
+    &lt;td&gt;나이&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;25&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>✅ 5. 시멘틱 그룹 태그 사용 이유</h2>
+    <ul>
+      <li><code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>를 나누면</li>
+      <li>스타일 지정, 스크롤 고정 등에 유리</li>
+      <li>스크린 리더 접근성 향상</li>
+    </ul>
+  </section>
+
+</body>
+</html>
