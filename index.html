@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>학습용 웹 메뉴 레이아웃</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* 사이드/상단 메뉴 영역 */
+    nav {
+      width: 250px;
+      background-color: #007acc;
+      color: white;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav > ul > li {
+      position: relative;
+    }
+
+    nav a {
+      display: block;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: white;
+    }
+
+    nav li:hover > a {
+      background-color: #005fa3;
+    }
+
+    /* 드롭다운 하위 메뉴 */
+    nav ul li ul {
+      display: none;
+      background-color: #2196f3;
+    }
+
+    nav ul li:hover > ul {
+      display: block;
+      position: relative;
+    }
+
+    nav ul li ul li a:hover {
+      background-color: #64b5f6;
+    }
+
+    /* 콘텐츠 영역 */
+    #content {
+      flex: 1;
+      border-left: 2px solid #ddd;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li>
+        <a href="#">WEB</a>
+        <ul>
+          <li><a href="#" data-page="web01.html">web01</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">HTML</a>
+        <ul>
+          <li><a href="#" data-page="html01.html">html01</a></li>
+          <li><a href="#" data-page="html02.html">html02</a></li>
+          <li><a href="#" data-page="html03.html">html03</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">CSS</a>
+        <ul>
+          <li><a href="#" data-page="css01.html">css01</a></li>
+          <li><a href="#" data-page="css02.html">css02</a></li>
+          <li><a href="#" data-page="css03.html">css03</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">JAVASCRIPT</a>
+        <ul>
+          <li><a href="#" data-page="js01.html">js01</a></li>
+          <li><a href="#" data-page="js02.html">js02</a></li>
+          <li><a href="#" data-page="js03.html">js03</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">AJAX</a>
+        <ul>
+          <li><a href="#" data-page="ajax01.html">ajax01</a></li>
+          <li><a href="#" data-page="ajax02.html">ajax02</a></li>
+          <li><a href="#" data-page="ajax03.html">ajax03</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">jQuery</a>
+        <ul>
+          <li><a href="#" data-page="jquery01.html">jquery01</a></li>
+          <li><a href="#" data-page="jquery02.html">jquery02</a></li>
+          <li><a href="#" data-page="jquery03.html">jquery03</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">LAYOUT</a>
+        <ul>
+          <li><a href="#" data-page="layout01.html">layout01</a></li>
+          <li><a href="#" data-page="layout02.html">layout02</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="content">
+    <iframe id="contentFrame" src=""></iframe>
+  </div>
+
+  <script>
+    // 모든 하위 메뉴 클릭 시 iframe에 로드
+    document.querySelectorAll("a[data-page]").forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const page = this.getAttribute("data-page");
+        document.getElementById("contentFrame").src = page;
+      });
+    });
+  </script>
+
+</body>
+</html>
