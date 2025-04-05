@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML 주요 태그 요약</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fafb;
+      margin: 40px;
+      line-height: 1.6;
+      color: #212529;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    section {
+      background: white;
+      padding: 25px 30px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    h2 {
+      color: #0066cc;
+      margin-top: 0;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+    }
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💻 HTML 주요 태그 요약</h1>
+
+  <section>
+    <h2>🏷️ 1. 제목 태그 (`&lt;h1&gt;` ~ `&lt;h6&gt;`)</h2>
+    <ul>
+      <li><code>&lt;h1&gt;</code>: 가장 큰 제목</li>
+      <li><code>&lt;h6&gt;</code>: 가장 작은 제목</li>
+      <li>페이지 구조 및 SEO에 중요</li>
+    </ul>
+    <code>
+&lt;h1&gt;제목 1&lt;/h1&gt;
+&lt;h2&gt;제목 2&lt;/h2&gt;
+...
+&lt;h6&gt;제목 6&lt;/h6&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>📄 2. 문단과 텍스트 태그</h2>
+    <ul>
+      <li><code>&lt;p&gt;</code>: 문단 (paragraph)</li>
+      <li><code>&lt;br&gt;</code>: 줄바꿈 (종료 태그 없음)</li>
+      <li><code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>: 강조 (굵게, 기울임)</li>
+    </ul>
+    <code>
+&lt;p&gt;이것은 문단입니다.&lt;/p&gt;
+&lt;p&gt;줄바꿈은&lt;br&gt;이렇게 합니다.&lt;/p&gt;
+&lt;strong&gt;중요한 텍스트&lt;/strong&gt;
+&lt;em&gt;기울어진 텍스트&lt;/em&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>🔗 3. 링크와 이미지</h2>
+    <ul>
+      <li><code>&lt;a href="URL"&gt;</code>: 하이퍼링크</li>
+      <li><code>&lt;img src="경로" alt="설명"&gt;</code>: 이미지 삽입</li>
+    </ul>
+    <code>
+&lt;a href="https://example.com"&gt;사이트로 이동&lt;/a&gt;
+&lt;img src="image.jpg" alt="설명 텍스트"&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>📋 4. 목록 태그</h2>
+    <ul>
+      <li><code>&lt;ul&gt;</code>: 순서 없는 목록</li>
+      <li><code>&lt;ol&gt;</code>: 순서 있는 목록</li>
+      <li><code>&lt;li&gt;</code>: 목록 항목</li>
+    </ul>
+    <code>
+&lt;ul&gt;
+  &lt;li&gt;항목 1&lt;/li&gt;
+  &lt;li&gt;항목 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;첫째&lt;/li&gt;
+  &lt;li&gt;둘째&lt;/li&gt;
+&lt;/ol&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>📦 5. 구획 및 구조 태그</h2>
+    <ul>
+      <li><code>&lt;div&gt;</code>: 블록 요소 그룹</li>
+      <li><code>&lt;span&gt;</code>: 인라인 요소 그룹</li>
+      <li><code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>: 의미 있는 구역 구분</li>
+    </ul>
+    <code>
+&lt;div class="box"&gt;레이아웃 박스&lt;/div&gt;
+&lt;span style="color:red"&gt;강조 텍스트&lt;/span&gt;
+
+&lt;header&gt;머리말&lt;/header&gt;
+&lt;main&gt;본문 내용&lt;/main&gt;
+&lt;footer&gt;바닥글&lt;/footer&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>🔘 6. 입력 및 폼 태그</h2>
+    <ul>
+      <li><code>&lt;form&gt;</code>: 입력을 받는 폼 영역</li>
+      <li><code>&lt;input&gt;</code>: 한 줄 입력</li>
+      <li><code>&lt;textarea&gt;</code>: 여러 줄 입력</li>
+      <li><code>&lt;button&gt;</code>: 버튼</li>
+      <li><code>&lt;label&gt;</code>: 입력 필드 설명</li>
+    </ul>
+    <code>
+&lt;form&gt;
+  &lt;label for="name"&gt;이름:&lt;/label&gt;
+  &lt;input type="text" id="name" name="name"&gt;
+  &lt;textarea rows="4" cols="30"&gt;&lt;/textarea&gt;
+  &lt;button type="submit"&gt;제출&lt;/button&gt;
+&lt;/form&gt;
+    </code>
+  </section>
+
+  <section>
+    <h2>🧪 7. 기타 유용한 태그</h2>
+    <ul>
+      <li><code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>: 표 구성</li>
+      <li><code>&lt;iframe&gt;</code>: 외부 웹페이지 포함</li>
+      <li><code>&lt;script&gt;</code>: JavaScript 코드 포함</li>
+      <li><code>&lt;link&gt;</code>, <code>&lt;style&gt;</code>: CSS 포함</li>
+    </ul>
+    <code>
+&lt;table&gt;
+  &lt;tr&gt;&lt;th&gt;이름&lt;/th&gt;&lt;th&gt;나이&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;홍길동&lt;/td&gt;&lt;td&gt;25&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+    </code>
+  </section>
+
+</body>
+</html>
