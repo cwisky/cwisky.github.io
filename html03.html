@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form & Table 태그 요약</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f6f8;
+      color: #222;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+    }
+    h2 {
+      color: #007BFF;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📝 Form 태그 & 🧾 Table 태그 요약</h1>
+
+  <!-- Form 태그 슬라이드 -->
+  <section>
+    <h2>📝 1. Form (폼) 태그란?</h2>
+    <ul>
+      <li>사용자로부터 **입력 데이터를 수집**하는 영역</li>
+      <li><code>&lt;form&gt;</code> 안에 다양한 입력 요소 포함</li>
+      <li>주요 속성:
+        <ul>
+          <li><code>action</code>: 데이터를 전송할 URL</li>
+          <li><code>method</code>: 전송 방식 (GET / POST)</li>
+        </ul>
+      </li>
+    </ul>
+    <h3>📌 주요 입력 태그</h3>
+    <ul>
+      <li><code>&lt;input&gt;</code>: 텍스트, 비밀번호, 이메일 등</li>
+      <li><code>&lt;textarea&gt;</code>: 여러 줄 텍스트</li>
+      <li><code>&lt;select&gt;</code>: 드롭다운 목록</li>
+      <li><code>&lt;button&gt;</code>: 버튼</li>
+    </ul>
+    <code>
+&lt;form action="/submit" method="post"&gt;
+  &lt;label for="name"&gt;이름:&lt;/label&gt;
+  &lt;input type="text" id="name" name="name"&gt;&lt;br&gt;
+
+  &lt;label for="msg"&gt;메시지:&lt;/label&gt;
+  &lt;textarea id="msg" name="msg"&gt;&lt;/textarea&gt;&lt;br&gt;
+
+  &lt;button type="submit"&gt;전송&lt;/button&gt;
+&lt;/form&gt;
+    </code>
+  </section>
+
+  <!-- Table 태그 슬라이드 -->
+  <section>
+    <h2>🧾 2. Table (표) 태그란?</h2>
+    <ul>
+      <li>데이터를 **행(Row)**과 **열(Column)**로 표현</li>
+      <li><code>&lt;table&gt;</code>: 표 전체</li>
+      <li><code>&lt;tr&gt;</code>: 행 (table row)</li>
+      <li><code>&lt;th&gt;</code>: 제목 셀 (table header)</li>
+      <li><code>&lt;td&gt;</code>: 일반 셀 (table data)</li>
+    </ul>
+    <h3>📌 기본 구조</h3>
+    <code>
+&lt;table border="1"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;이름&lt;/th&gt;
+    &lt;th&gt;나이&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;홍길동&lt;/td&gt;
+    &lt;td&gt;25&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+    </code>
+  </section>
+
+</body>
+</html>
