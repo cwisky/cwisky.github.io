@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM 이해 및 조작</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f5f7fa;
+      color: #222;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: white;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #007acc;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧩 DOM 이해 및 조작</h1>
+
+  <section>
+    <h2>📌 1. DOM이란?</h2>
+    <ul>
+      <li>DOM (Document Object Model)은 HTML 문서를 객체로 표현한 구조</li>
+      <li>문서의 각 요소를 <strong>노드(Node)</strong>로 구성</li>
+      <li>JavaScript를 통해 문서 내용이나 구조를 <strong>조작 가능</strong></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🧱 2. DOM 구조</h2>
+    <ul>
+      <li><strong>Document</strong> 객체가 최상위 루트</li>
+      <li>각 태그는 <strong>Element Node</strong></li>
+      <li>텍스트는 <strong>Text Node</strong></li>
+    </ul>
+    <code>
+document
+  └── html
+      ├── head
+      └── body
+          ├── h1
+          └── p
+    </code>
+  </section>
+
+  <section>
+    <h2>🔍 3. DOM 요소 선택</h2>
+    <ul>
+      <li><code>getElementById()</code>: ID로 요소 찾기</li>
+      <li><code>getElementsByClassName()</code>: 클래스명으로 찾기</li>
+      <li><code>querySelector()</code>: CSS 선택자 방식</li>
+      <li><code>querySelectorAll()</code>: 여러 개 선택</li>
+    </ul>
+    <code>
+const title = document.getElementById("main-title");
+const items = document.querySelectorAll(".list-item");
+    </code>
+  </section>
+
+  <section>
+    <h2>✏️ 4. DOM 조작 (속성, 내용, 스타일)</h2>
+    <ul>
+      <li><strong>텍스트 변경</strong>: <code>textContent</code>, <code>innerHTML</code></li>
+      <li><strong>속성 변경</strong>: <code>setAttribute()</code>, <code>href</code>, <code>src</code></li>
+      <li><strong>스타일 조작</strong>: <code>style</code> 속성 사용</li>
+    </ul>
+    <code>
+const box = document.querySelector(".box");
+
+box.textContent = "새로운 내용";
+box.setAttribute("id", "new-box");
+box.style.backgroundColor = "lightyellow";
+    </code>
+  </section>
+
+  <section>
+    <h2>🛠️ 5. DOM 요소 생성 및 삭제</h2>
+    <ul>
+      <li><code>createElement()</code>: 요소 생성</li>
+      <li><code>appendChild()</code>, <code>prepend()</code>: 자식으로 추가</li>
+      <li><code>remove()</code>, <code>removeChild()</code>: 삭제</li>
+    </ul>
+    <code>
+const newItem = document.createElement("li");
+newItem.textContent = "추가된 항목";
+
+document.querySelector("ul").appendChild(newItem);
+
+newItem.remove(); // 제거
+    </code>
+  </section>
+
+  <section>
+    <h2>🧠 6. 실습 예시: 버튼 클릭 시 문단 추가</h2>
+    <code>
+&lt;button id="add-btn"&gt;추가&lt;/button&gt;
+&lt;div id="container"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  document.getElementById("add-btn").addEventListener("click", () => {
+    const p = document.createElement("p");
+    p.textContent = "새 문단이 추가되었습니다.";
+    document.getElementById("container").appendChild(p);
+  });
+&lt;/script&gt;
+    </code>
+  </section>
+
+</body>
+</html>
