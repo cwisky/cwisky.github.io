@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flexbox 속성과 사용법</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f6f8fa;
+      color: #222;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: #fff;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #007acc;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-family: Consolas, monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📦 Flexbox 속성과 사용법 요약</h1>
+
+  <section>
+    <h2>📌 1. Flexbox란?</h2>
+    <ul>
+      <li>CSS에서 **레이아웃을 쉽게 구성**하기 위한 방법</li>
+      <li>가로 정렬, 세로 정렬, 간격 조절 등을 간단하게 구현</li>
+      <li>부모 요소에 <code>display: flex</code>를 설정하면 적용</li>
+    </ul>
+    <code>
+.container {
+  display: flex;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>🔀 2. 주요 속성 - 부모 요소 (컨테이너)</h2>
+    <ul>
+      <li><code>flex-direction</code>: 방향 설정 (row, column)</li>
+      <li><code>justify-content</code>: 주축 정렬</li>
+      <li><code>align-items</code>: 교차축 정렬</li>
+      <li><code>flex-wrap</code>: 줄 바꿈 허용</li>
+      <li><code>gap</code>: 아이템 간 간격</li>
+    </ul>
+    <code>
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>🎯 3. 주요 속성 - 자식 요소 (아이템)</h2>
+    <ul>
+      <li><code>flex</code>: 성장, 축소, 기준 너비 설정 (단축 속성)</li>
+      <li><code>align-self</code>: 개별 아이템의 세로 정렬</li>
+      <li><code>order</code>: 아이템 순서 재배치</li>
+    </ul>
+    <code>
+.item {
+  flex: 1;             /* 같은 비율로 분배 */
+  align-self: flex-end;
+  order: 2;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>📏 4. flex-direction 종류</h2>
+    <ul>
+      <li><code>row</code>: 기본값, 가로 정렬 (왼→오)</li>
+      <li><code>row-reverse</code>: 가로 반대 (오→왼)</li>
+      <li><code>column</code>: 세로 정렬 (위→아래)</li>
+      <li><code>column-reverse</code>: 세로 반대</li>
+    </ul>
+    <code>
+.container {
+  display: flex;
+  flex-direction: column;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>🧭 5. justify-content (가로 정렬)</h2>
+    <ul>
+      <li><code>flex-start</code>: 왼쪽 정렬</li>
+      <li><code>flex-end</code>: 오른쪽 정렬</li>
+      <li><code>center</code>: 가운데 정렬</li>
+      <li><code>space-between</code>: 양쪽 정렬 + 간격 분배</li>
+      <li><code>space-around</code>: 양쪽 여백 포함</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📐 6. align-items (세로 정렬)</h2>
+    <ul>
+      <li><code>stretch</code>: 기본값, 높이 늘림</li>
+      <li><code>flex-start</code>: 위쪽 정렬</li>
+      <li><code>flex-end</code>: 아래쪽 정렬</li>
+      <li><code>center</code>: 수직 중앙 정렬</li>
+      <li><code>baseline</code>: 글꼴 기준선 정렬</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>💡 7. flex 단축 속성</h2>
+    <ul>
+      <li><code>flex: grow shrink basis</code> 형태</li>
+      <li>예: <code>flex: 1 1 100px</code></li>
+      <li>또는 <code>flex: 1</code> 만 사용해 동일 비율 분배</li>
+    </ul>
+    <code>
+.item {
+  flex: 2 1 200px;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>📚 8. 예시: 가로 정렬 레이아웃</h2>
+    <code>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  gap: 10px;
+}
+
+.item {
+  background: #d0ebff;
+  padding: 20px;
+  flex: 1;
+  text-align: center;
+}
+    </code>
+  </section>
+
+</body>
+</html>
