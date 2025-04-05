@@ -3,13 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>드롭다운 메뉴 웹페이지</title>
+  <title>동적 콘텐츠 로딩 웹페이지</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -17,7 +13,6 @@
       color: #333;
     }
 
-    /* 상단 메뉴 */
     nav {
       background-color: #007bff;
       padding: 10px 20px;
@@ -39,14 +34,13 @@
       text-decoration: none;
       padding: 10px 15px;
       display: block;
-      transition: background 0.3s ease;
+      transition: background 0.3s;
     }
 
     nav ul li:hover > a {
       background-color: #0056b3;
     }
 
-    /* 하위 드롭다운 메뉴 */
     nav ul li ul {
       position: absolute;
       top: 100%;
@@ -62,15 +56,10 @@
       display: flex;
     }
 
-    nav ul li ul li {
-      margin: 0;
-    }
-
     nav ul li ul li a:hover {
       background-color: #339cff;
     }
 
-    /* 콘텐츠 영역 */
     #content {
       padding: 40px;
       min-height: 300px;
@@ -81,8 +70,13 @@
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -93,21 +87,15 @@
       <li>
         <a href="#">메뉴 1</a>
         <ul>
-          <li><a href="#" data-content="menu1-1">하위메뉴 1-1</a></li>
-          <li><a href="#" data-content="menu1-2">하위메뉴 1-2</a></li>
+          <li><a href="#" data-page="menu1-1.html">하위메뉴 1-1</a></li>
+          <li><a href="#" data-page="menu1-2.html">하위메뉴 1-2</a></li>
         </ul>
       </li>
       <li>
         <a href="#">메뉴 2</a>
         <ul>
-          <li><a href="#" data-content="menu2-1">하위메뉴 2-1</a></li>
-          <li><a href="#" data-content="menu2-2">하위메뉴 2-2</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">메뉴 3</a>
-        <ul>
-          <li><a href="#" data-content="menu3-1">하위메뉴 3-1</a></li>
+          <li><a href="#" data-page="menu2-1.html">하위메뉴 2-1</a></li>
+          <li><a href="#" data-page="menu2-2.html">하위메뉴 2-2</a></li>
         </ul>
       </li>
     </ul>
@@ -116,47 +104,30 @@
   <div id="content">
     <div class="content-box">
       <h2>환영합니다!</h2>
-      <p>메뉴의 하위 항목을 클릭하면 이곳에 해당 콘텐츠가 표시됩니다.</p>
+      <p>메뉴의 하위 항목을 클릭하면 외부 HTML 페이지가 이 영역에 표시됩니다.</p>
     </div>
   </div>
 
   <script>
-    const contentMap = {
-      "menu1-1": {
-        title: "하위메뉴 1-1",
-        text: "이곳은 하위메뉴 1-1의 콘텐츠입니다. 간단한 소개 또는 기능 설명을 작성할 수 있습니다."
-      },
-      "menu1-2": {
-        title: "하위메뉴 1-2",
-        text: "여기는 하위메뉴 1-2의 콘텐츠입니다. 페이지 또는 섹션 설명을 삽입해 보세요."
-      },
-      "menu2-1": {
-        title: "하위메뉴 2-1",
-        text: "이곳은 하위메뉴 2-1에 대한 설명입니다. 어떤 기능이든 연결 가능합니다."
-      },
-      "menu2-2": {
-        title: "하위메뉴 2-2",
-        text: "여기는 하위메뉴 2-2의 정보입니다. 폼, 이미지, 표 등도 포함할 수 있어요."
-      },
-      "menu3-1": {
-        title: "하위메뉴 3-1",
-        text: "하위메뉴 3-1 영역입니다. 이곳은 자유롭게 편집 가능합니다."
-      }
-    };
+    const links = document.querySelectorAll('a[data-page]');
+    const contentArea = document.getElementById("content");
 
-    document.querySelectorAll('a[data-content]').forEach(link => {
+    links.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
-        const key = link.dataset.content;
-        const target = contentMap[key];
+        const pageUrl = link.dataset.page;
 
-        const contentHTML = `
-          <div class="content-box">
-            <h2>${target.title}</h2>
-            <p>${target.text}</p>
-          </div>
-        `;
-        document.getElementById("content").innerHTML = contentHTML;
+        fetch(pageUrl)
+          .then(response => {
+            if (!response.ok) throw new Error("페이지를 불러올 수 없습니다.");
+            return response.text();
+          })
+          .then(html => {
+            contentArea.innerHTML = `<div class="content-box">${html}</div>`;
+          })
+          .catch(error => {
+            contentArea.innerHTML = `<div class="content-box"><p class="error">⚠️ ${error.message}</p></div>`;
+          });
       });
     });
   </script>
