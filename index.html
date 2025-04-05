@@ -41,6 +41,20 @@
       background-color: #005fa3;
     }
 
+    nav > ul > li:hover > a {
+      background-color: #005fa3;
+      border-radius: 6px; /* ✅ 마우스 오버 시 둥근 테두리 */
+    }
+
+    nav > ul > li > a {
+      display: block;
+      padding: 14px 20px;
+      text-decoration: none;
+      color: white;
+      white-space: nowrap;
+      transition: background-color 0.3s, border-radius 0.2s;
+    }
+
     /* ✅ 투명 배경 적용된 드롭다운 */
     nav ul li ul {
       display: none;
