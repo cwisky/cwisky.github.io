@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery 동적 요소 이벤트 연결</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    .box {
+      background: #e3f2fd;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .btn {
+      margin: 10px 0;
+      padding: 10px 16px;
+      background: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .dynamic {
+      background: #26a69a;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>✨ 동적으로 생성한 요소에 이벤트 연결</h1>
+
+  <div class="box" id="container">
+    <button class="btn" id="addBtn">➕ 새 버튼 추가</button>
+    <!-- 여기에 동적 버튼이 추가될 예정 -->
+  </div>
+
+  <script>
+    let count = 1;
+
+    // 동적 버튼 추가
+    $("#addBtn").click(function () {
+      $("#container").append(
+        `<button class="btn dynamic">🔘 생성된 버튼 ${count++}</button>`
+      );
+    });
+
+    // 이벤트 위임 방식으로 동적 버튼에 이벤트 연결
+    $("#container").on("click", ".dynamic", function () {
+      alert($(this).text() + " 클릭됨!");
+      $(this).css("background-color", "#ff7043");
+    });
+  </script>
+
+</body>
+</html>
