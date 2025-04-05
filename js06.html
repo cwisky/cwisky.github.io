@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>체크된 항목 JSON으로 출력</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    .box {
+      background: #fff;
+      padding: 20px;
+      max-width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 16px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h3>📦 관심 있는 기술을 선택하세요</h3>
+    
+    <label><input type="checkbox" name="skills" value="HTML"> HTML</label>
+    <label><input type="checkbox" name="skills" value="CSS"> CSS</label>
+    <label><input type="checkbox" name="skills" value="JavaScript"> JavaScript</label>
+    <label><input type="checkbox" name="skills" value="React"> React</label>
+    <label><input type="checkbox" name="skills" value="Node.js"> Node.js</label>
+    <label><input type="checkbox" name="skills" value="Python"> Python</label>
+
+    <button id="showBtn">선택 결과 보기</button>
+  </div>
+
+  <script>
+    document.getElementById("showBtn").addEventListener("click", function () {
+      // 모든 체크된 체크박스 찾기
+      const checkedBoxes = document.querySelectorAll('input[name="skills"]:checked');
+
+      // 선택된 값을 배열로 수집
+      const selectedValues = Array.from(checkedBoxes).map(checkbox => checkbox.value);
+
+      // JSON 문자열로 변환
+      const jsonResult = JSON.stringify(selectedValues, null, 2);
+
+      // alert 표시
+      alert(jsonResult);
+    });
+  </script>
+
+</body>
+</html>
