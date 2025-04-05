@@ -30,11 +30,12 @@
 <body>
 
   <h1>버튼을 눌러 배경색을 바꿔보세요!</h1>
-  <button onclick="changeBackground()">배경색 변경</button>
-
+  <button onclick="changeBackground()">배경색 변경</button><button onclick="resetBackground()">배경색 복원</button>
+  <!-- 외부 JS 파일 연결 -->
+  <script src="js/changeBackground.js"></script>
   <script>
-    function changeBackground() {
-      document.body.style.backgroundColor = "lightblue";
+    function resetBackground() {
+      document.body.style.backgroundColor = "white";
     }
   </script>
 
