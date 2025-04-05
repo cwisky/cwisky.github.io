@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>폼 유효성 검사 (정규표현식)</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 16px;
+      background: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .success {
+      background: #d4edda;
+      color: #155724;
+    }
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="signupForm">
+    <h2>회원가입</h2>
+
+    <label for="username">사용자 이름 (영문 3~10자)</label>
+    <input type="text" id="username" required>
+
+    <label for="password">비밀번호 (영문 최소 2자 + 숫자 최소 2자)</label>
+    <input type="password" id="password" required>
+
+    <label for="email">이메일</label>
+    <input type="email" id="email" required>
+
+    <button type="submit">제출</button>
+
+    <div id="result" class="message" style="display:none;"></div>
+  </form>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+      const email = document.getElementById("email").value.trim();
+      const result = document.getElementById("result");
+
+      // 정규표현식 정의
+      const usernameRegex = /^[A-Za-z]{3,10}$/;
+      const emailRegex = /^[\w\.-]+@[\w\.-]+\.\w{2,}$/;
+
+      const letterCount = (password.match(/[A-Za-z]/g) || []).length;
+      const numberCount = (password.match(/[0-9]/g) || []).length;
+
+      // 유효성 검사
+      if (!usernameRegex.test(username)) {
+        showMessage("❌ 사용자 이름은 영문자 3~10자여야 합니다.", false);
+        return;
+      }
+
+      if (letterCount < 2 || numberCount < 2) {
+        showMessage("❌ 비밀번호는 영문자와 숫자를 각각 최소 2자 이상 포함해야 합니다.", false);
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        showMessage("❌ 유효한 이메일 형식이 아닙니다.", false);
+        return;
+      }
+
+      showMessage("✅ 모든 항목이 유효합니다. 회원가입 완료!", true);
+
+      function showMessage(msg, success) {
+        result.textContent = msg;
+        result.className = "message " + (success ? "success" : "error");
+        result.style.display = "block";
+      }
+    });
+  </script>
+
+</body>
+</html>
