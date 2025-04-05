@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>체크된 항목만 제거</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background-color: #f5f5f5;
+    }
+    .box {
+      background: #fff;
+      padding: 20px;
+      max-width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 16px;
+      background-color: #e53935;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box" id="checkboxContainer">
+    <h3>🧹 체크된 항목만 삭제하기</h3>
+
+    <label><input type="checkbox" name="item" value="1"> 항목 1</label>
+    <label><input type="checkbox" name="item" value="2"> 항목 2</label>
+    <label><input type="checkbox" name="item" value="3"> 항목 3</label>
+    <label><input type="checkbox" name="item" value="4"> 항목 4</label>
+
+    <button id="removeBtn">✔ 선택된 항목 삭제</button>
+  </div>
+
+  <script>
+    document.getElementById("removeBtn").addEventListener("click", () => {
+      const checkedBoxes = document.querySelectorAll('input[name="item"]:checked');
+
+      if (checkedBoxes.length === 0) {
+        alert("삭제할 항목을 선택하세요.");
+        return;
+      }
+
+      checkedBoxes.forEach(box => {
+        const label = box.closest("label");
+        if (label) label.remove(); // label 전체 제거
+      });
+    });
+  </script>
+
+</body>
+</html>
