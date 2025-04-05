@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS 기초 개념 요약</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f6f9;
+      color: #222;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: #fff;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #007bff;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-family: Consolas, monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎨 CSS 핵심 개념 요약</h1>
+
+  <section>
+    <h2>🧷 1. 선택자 (Selector)</h2>
+    <ul>
+      <li><strong>태그 선택자</strong>: 요소 이름으로 선택 → <code>p { }</code></li>
+      <li><strong>클래스 선택자</strong>: <code>.클래스명</code> → <code>.highlight { }</code></li>
+      <li><strong>아이디 선택자</strong>: <code>#아이디명</code> → <code>#header { }</code></li>
+      <li><strong>자손/자식 선택자</strong>: <code>div p</code> / <code>div > p</code></li>
+    </ul>
+    <code>
+/* 예시 */
+p { color: blue; }
+.highlight { background-color: yellow; }
+#header { font-weight: bold; }
+    </code>
+  </section>
+
+  <section>
+    <h2>🎨 2. 색상 지정 (Color)</h2>
+    <ul>
+      <li>이름으로 지정: <code>red</code>, <code>blue</code></li>
+      <li>Hex 코드: <code>#ff0000</code></li>
+      <li>RGB: <code>rgb(255, 0, 0)</code></li>
+      <li>RGBA (투명도 포함): <code>rgba(0, 0, 0, 0.5)</code></li>
+    </ul>
+    <code>
+h1 {
+  color: #007bff;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>🔤 3. 글꼴 스타일 (Fonts)</h2>
+    <ul>
+      <li><code>font-family</code>: 글꼴 지정 (여러 개 가능)</li>
+      <li><code>font-size</code>: 글자 크기 (px, em, rem 등)</li>
+      <li><code>font-weight</code>: 굵기 (normal, bold, 100~900)</li>
+      <li><code>text-align</code>: 정렬 (left, center, right)</li>
+    </ul>
+    <code>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>📦 4. 박스 모델(Box Model)</h2>
+    <ul>
+      <li>모든 HTML 요소는 사각형 박스 형태로 구성</li>
+      <li>구성 요소: <strong>Content → Padding → Border → Margin</strong></li>
+      <li>시각적으로 레이아웃을 조절하는 핵심 구조</li>
+    </ul>
+    <code>
+div {
+  padding: 10px;
+  border: 2px solid #ccc;
+  margin: 20px;
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>↔️ 5. 여백: Margin vs Padding</h2>
+    <ul>
+      <li><strong>Margin</strong>: 요소 바깥 여백 (다른 요소와의 거리)</li>
+      <li><strong>Padding</strong>: 요소 안쪽 여백 (내용과 테두리 사이)</li>
+    </ul>
+    <code>
+.box {
+  margin: 20px;   /* 외부 간격 */
+  padding: 15px;  /* 내부 간격 */
+}
+    </code>
+  </section>
+
+</body>
+</html>
