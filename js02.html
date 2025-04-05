@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>조건문, 반복문, 함수, 이벤트 처리</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f6f9;
+      color: #222;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    section {
+      background-color: #fff;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #007bff;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      display: block;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📘 조건문, 반복문, 함수, 이벤트 처리</h1>
+
+  <section>
+    <h2>✅ 1. 조건문 (if / else / switch)</h2>
+    <ul>
+      <li><code>if</code>: 조건이 참일 때 실행</li>
+      <li><code>else</code>: 조건이 거짓일 때 실행</li>
+      <li><code>else if</code>: 추가 조건</li>
+      <li><code>switch</code>: 여러 경우의 분기</li>
+    </ul>
+    <code>
+let score = 85;
+
+if (score >= 90) {
+  console.log("A 학점");
+} else if (score >= 80) {
+  console.log("B 학점");
+} else {
+  console.log("C 학점 이하");
+}
+    </code>
+    <code>
+let fruit = "banana";
+
+switch (fruit) {
+  case "apple":
+    console.log("사과입니다");
+    break;
+  case "banana":
+    console.log("바나나입니다");
+    break;
+  default:
+    console.log("알 수 없음");
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>🔁 2. 반복문 (for / while)</h2>
+    <ul>
+      <li><code>for</code>: 반복 횟수가 정해졌을 때 사용</li>
+      <li><code>while</code>: 조건이 참인 동안 반복</li>
+      <li><code>for...of</code>: 배열 순회</li>
+    </ul>
+    <code>
+for (let i = 0; i < 5; i++) {
+  console.log("i =", i);
+}
+
+let count = 3;
+while (count > 0) {
+  console.log("남은 횟수:", count);
+  count--;
+}
+
+let fruits = ["사과", "배", "포도"];
+for (let fruit of fruits) {
+  console.log(fruit);
+}
+    </code>
+  </section>
+
+  <section>
+    <h2>🔧 3. 함수 (Function)</h2>
+    <ul>
+      <li>동작을 정의하고 재사용 가능</li>
+      <li><code>function</code> 키워드 또는 <code>화살표 함수</code> 사용</li>
+      <li>매개변수, 반환값 포함 가능</li>
+    </ul>
+    <code>
+// 기본 함수 선언
+function greet(name) {
+  return "안녕하세요, " + name + "님!";
+}
+
+console.log(greet("홍길동"));
+    </code>
+    <code>
+// 화살표 함수
+const add = (a, b) => a + b;
+console.log(add(3, 5));  // 8
+    </code>
+  </section>
+
+  <section>
+    <h2>🖱️ 4. 이벤트 처리</h2>
+    <ul>
+      <li>사용자의 <strong>행동에 반응</strong>하는 코드 작성</li>
+      <li>예: 클릭, 입력, 마우스 오버 등</li>
+      <li><code>addEventListener</code>로 이벤트 연결</li>
+    </ul>
+    <code>
+// 버튼 클릭 시 실행
+const button = document.querySelector("button");
+
+button.addEventListener("click", () => {
+  alert("버튼이 클릭되었습니다!");
+});
+    </code>
+  </section>
+
+</body>
+</html>
