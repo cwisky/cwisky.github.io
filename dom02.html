@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Vanilla JS JSON 테이블 렌더링</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #007acc;
+      color: white;
+    }
+    #loadBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📄 JSON 데이터를 테이블로 출력 (Vanilla JS)</h1>
+  <button id="loadBtn">JSON 데이터 불러오기</button>
+
+  <div id="tableContainer">
+    <!-- 여기에 테이블이 표시됩니다 -->
+  </div>
+
+  <script>
+    document.getElementById("loadBtn").addEventListener("click", () => {
+      fetch("users.json")
+        .then(response => {
+          if (!response.ok) throw new Error("데이터를 불러올 수 없습니다.");
+          return response.json();
+        })
+        .then(data => {
+          renderTable(data);
+        })
+        .catch(error => {
+          document.getElementById("tableContainer").innerHTML =
+            `<p style="color:red;">❌ ${error.message}</p>`;
+        });
+    });
+
+    function renderTable(users) {
+      let html = `
+        <table>
+          <thead>
+            <tr><th>이름</th><th>이메일</th><th>나이</th></tr>
+          </thead>
+          <tbody>
+      `;
+
+      users.forEach(user => {
+        html += `
+          <tr>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>${user.age}</td>
+          </tr>
+        `;
+      });
+
+      html += "</tbody></table>";
+
+      document.getElementById("tableContainer").innerHTML = html;
+    }
+  </script>
+
+</body>
+</html>
