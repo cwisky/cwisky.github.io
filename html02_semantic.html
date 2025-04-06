@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 시맨틱 태그 정리</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #aaa;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML5 시맨틱 태그 정리</h1>
+
+    <p>HTML5에서는 문서 구조를 더 명확하게 표현하고 접근성과 SEO를 향상시키기 위해 다양한 <strong>시맨틱 태그(Semantic Tags)</strong>가 추가되었습니다. 이러한 태그들은 단순히 시각적인 레이아웃이 아니라 <strong>의미 있는 구조</strong>를 제공하기 위해 도입되었습니다.</p>
+
+    <h2>✅ 시맨틱 태그란?</h2>
+    <p>"Semantic"은 "의미론적인"이라는 뜻으로, 시맨틱 태그는 <strong>태그 자체가 어떤 의미나 역할을 내포</strong>하고 있어 코드의 가독성과 유지보수성을 높입니다.</p>
+
+    <h2>📚 주요 시맨틱 태그와 설명</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>태그</th>
+                <th>설명</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>&lt;header&gt;</code></td><td>문서나 섹션의 머리말(헤더)을 정의</td></tr>
+            <tr><td><code>&lt;nav&gt;</code></td><td>내비게이션 링크 영역을 정의</td></tr>
+            <tr><td><code>&lt;main&gt;</code></td><td>문서의 주요 콘텐츠를 정의</td></tr>
+            <tr><td><code>&lt;section&gt;</code></td><td>주제를 구분하는 독립적인 섹션을 정의</td></tr>
+            <tr><td><code>&lt;article&gt;</code></td><td>독립적으로 배포 가능한 콘텐츠를 정의</td></tr>
+            <tr><td><code>&lt;aside&gt;</code></td><td>본문과 간접적으로 관련된 보조 콘텐츠를 정의</td></tr>
+            <tr><td><code>&lt;footer&gt;</code></td><td>문서나 섹션의 꼬리말(푸터)을 정의</td></tr>
+            <tr><td><code>&lt;figure&gt;</code></td><td>이미지, 다이어그램 등의 콘텐츠와 설명을 묶는 태그</td></tr>
+            <tr><td><code>&lt;figcaption&gt;</code></td><td><code>&lt;figure&gt;</code>에 대한 설명을 제공</td></tr>
+        </tbody>
+    </table>
+
+    <h2>💻 예제: 시맨틱 태그를 사용한 간단한 웹 페이지 구조</h2>
+
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;시맨틱 태그 예제&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;header&gt;
+        &lt;h1&gt;나의 블로그&lt;/h1&gt;
+        &lt;p&gt;프론트엔드 개발 이야기&lt;/p&gt;
+    &lt;/header&gt;
+
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;홈&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;소개&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;글 목록&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;연락처&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;main&gt;
+        &lt;section&gt;
+            &lt;h2&gt;최근 게시물&lt;/h2&gt;
+            &lt;article&gt;
+                &lt;h3&gt;HTML5란 무엇인가?&lt;/h3&gt;
+                &lt;p&gt;HTML5는 웹의 최신 표준입니다...&lt;/p&gt;
+            &lt;/article&gt;
+            &lt;article&gt;
+                &lt;h3&gt;시맨틱 태그의 중요성&lt;/h3&gt;
+                &lt;p&gt;의미 있는 구조는 접근성을 높여줍니다...&lt;/p&gt;
+            &lt;/article&gt;
+        &lt;/section&gt;
+
+        &lt;aside&gt;
+            &lt;h2&gt;광고&lt;/h2&gt;
+            &lt;p&gt;이 자리는 광고입니다.&lt;/p&gt;
+        &lt;/aside&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2025 나의 블로그. All rights reserved.&lt;/p&gt;
+    &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+    <h2>📝 정리</h2>
+    <ul>
+        <li>시맨틱 태그는 문서의 구조를 명확하게 표현하여 <strong>개발자, 브라우저, 검색 엔진</strong> 모두에게 이점을 줍니다.</li>
+        <li><code>&lt;div&gt;</code>나 <code>&lt;span&gt;</code> 대신 의미 있는 시맨틱 태그 사용을 권장합니다.</li>
+        <li><strong>접근성(Accessibility)</strong>과 <strong>SEO(Search Engine Optimization)</strong>를 고려할 때 매우 중요합니다.</li>
+    </ul>
+
+    <h2>📌 참고 자료</h2>
+    <ul>
+        <li><a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element" target="_blank">MDN Web Docs - HTML Elements</a></li>
+        <li><a href="https://html.spec.whatwg.org/" target="_blank">WHATWG HTML Living Standard</a></li>
+    </ul>
+
+    <footer>
+        <p>문서 작성자: 당신의 이름 | 작성일: 2025년 4월 7일</p>
+    </footer>
+
+</body>
+</html>
