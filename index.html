@@ -198,6 +198,8 @@
 <script>
     // JS를 통해 main.html을 불러와 #main-container에 삽입
     document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('contentFrame').src = 'main.html';
+      /*
       fetch('main.html')
         .then(response => {
           if (!response.ok) {
@@ -206,11 +208,11 @@
           return response.text();
         })
         .then(html => {
-          document.getElementById('contentFrame').src = html;
+          document.getElementById('contentFrame').src = 'main.html';
         })
         .catch(error => {
           console.error('페이지 로딩 실패:', error);
-        });
+        });*/
     });
   </script>
   <style>
