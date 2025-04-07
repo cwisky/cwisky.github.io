@@ -195,5 +195,32 @@
     });
   </script>
 
+<script>
+    // JS를 통해 main.html을 불러와 #main-container에 삽입
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('main.html')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(html => {
+          document.getElementById('contentFrame').innerHTML = html;
+        })
+        .catch(error => {
+          console.error('페이지 로딩 실패:', error);
+        });
+    });
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #main-container {
+      margin: 20px;
+    }
+  </style>
+  
 </body>
 </html>
