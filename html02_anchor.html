@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>하이퍼링크 형식의 다양한 예시</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      padding: 2rem;
+      background: #f7f7f7;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    section {
+      background: white;
+      padding: 1.5rem;
+      margin: 1rem auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 800px;
+    }
+    code {
+      background-color: #eee;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    a {
+      color: #3498db;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>하이퍼링크의 다양한 형식</h1>
+
+  <section>
+    <h2>1. 외부 웹사이트 링크</h2>
+    <p>
+      외부 사이트로 이동하는 기본적인 하이퍼링크입니다.<br>
+      예시: <a href="https://www.google.com" target="_blank">구글로 이동</a><br>
+      코드: <code>&lt;a href="https://www.google.com" target="_blank"&gt;구글로 이동&lt;/a&gt;</code>
+    </p>
+  </section>
+
+  <section>
+    <h2>2. 같은 페이지 내 앵커 링크</h2>
+    <p>
+      문서 내 특정 위치로 이동할 수 있습니다.<br>
+      예시: <a href="#bottom">맨 아래로 이동</a><br>
+      코드: <code>&lt;a href="#bottom"&gt;맨 아래로 이동&lt;/a&gt;</code><br>
+      <br>
+      대상 위치에는 <code>id</code> 속성이 있어야 합니다:
+      <pre><code>&lt;div id="bottom"&gt;여기가 맨 아래입니다&lt;/div&gt;</code></pre>
+    </p>
+  </section>
+
+  <section>
+    <h2>3. 이메일 링크</h2>
+    <p>
+      사용자의 이메일 클라이언트를 열고 메일을 작성하도록 유도합니다.<br>
+      예시: <a href="mailto:example@example.com">메일 보내기</a><br>
+      코드: <code>&lt;a href="mailto:example@example.com"&gt;메일 보내기&lt;/a&gt;</code>
+    </p>
+  </section>
+
+  <section>
+    <h2>4. 전화 걸기 링크</h2>
+    <p>
+      스마트폰에서 클릭하면 전화 앱이 실행됩니다.<br>
+      예시: <a href="tel:01012345678">010-1234-5678 전화 걸기</a><br>
+      코드: <code>&lt;a href="tel:01012345678"&gt;010-1234-5678 전화 걸기&lt;/a&gt;</code>
+    </p>
+  </section>
+
+  <section>
+    <h2>5. 파일 다운로드 링크</h2>
+    <p>
+      클릭 시 파일이 다운로드됩니다. (브라우저 설정에 따라 다를 수 있음)<br>
+      예시: <a href="sample.pdf" download>PDF 파일 다운로드</a><br>
+      코드: <code>&lt;a href="sample.pdf" download&gt;PDF 파일 다운로드&lt;/a&gt;</code>
+    </p>
+  </section>
+
+  <section>
+    <h2>6. 새 창에서 열기 vs 현재 창에서 열기</h2>
+    <ul>
+      <li><strong>현재 창:</strong> <code>&lt;a href="..."&gt;</code></li>
+      <li><strong>새 창:</strong> <code>&lt;a href="..." target="_blank"&gt;</code></li>
+    </ul>
+    <p>※ 외부 링크는 보통 <code>target="_blank"</code>로 설정하여 새 창에서 여는 것이 일반적입니다.</p>
+  </section>
+
+  <section id="bottom">
+    <h2>📌 여기가 맨 아래입니다</h2>
+    <p>앵커 링크를 통해 도달할 수 있는 위치입니다.</p>
+  </section>
+
+</body>
+</html>
