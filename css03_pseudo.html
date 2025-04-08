@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>::before & ::after 데모</title>
+  <style>
+    .important::before {
+      content: "⚠️ ";
+      color: red;
+    }
+
+    .important::after {
+      content: " 🔒";
+      color: green;
+    }
+
+    .quote::before {
+      content: "“";
+      font-size: 1.5em;
+      color: gray;
+    }
+
+    .quote::after {
+      content: "”";
+      font-size: 1.5em;
+      color: gray;
+    }
+
+    .new::before {
+      content: "🆕 ";
+    }
+
+    .check::after {
+      content: " ✅";
+    }
+  </style>
+</head>
+<body>
+
+  <p class="important">이 페이지는 보안이 필요합니다.</p>
+  <p class="quote">명언은 사람을 움직인다.</p>
+  <p class="new">새로운 기능이 추가되었습니다.</p>
+  <p class="check">작업이 완료되었습니다.</p>
+
+</body>
+</html>
