@@ -162,6 +162,7 @@ urlpatterns = [
 ```
 11. 글 작성 템플릿
 ```django
+<!-- board/templates/board/post_form.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -183,8 +184,9 @@ urlpatterns = [
 ```
 12. 글 상세보기 템플릿
 ```django
+<!-- board/templates/board/post_detail.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
