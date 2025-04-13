@@ -345,11 +345,11 @@ def post_delete(request, pk):
 ## Pagination
 *
 
-## AI 모델 로드 및 사용
-*
-
 ## 부모 템플릿 상속 오버라이드
 *
 
 ## CSS, Layout 적용
+*
+
+## AI 모델 로드 및 사용
 *
