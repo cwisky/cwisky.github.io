@@ -220,6 +220,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 * localhost:8000/board/ 접속
 
 ## 첨부파일 다운로드
+* HTML5에서부터 지원하는 다운로드 기능
+```html
+<a href="/media/example.pdf" download>PDF 다운로드</a> <--링크에 연결된 파일을 브라우저에 열지 않고 다운로드함-->
+<a href="/media/report.csv" download="sales_report.csv">보고서 다운로드</a>  <!--파일명 지명 가능-->
+```
 1. attachment/file-name 경로에서 file-name 부부만 보여주기위해 아래의 필터 선언(필터 함수로 basename()선언)
 ```python
 # board/templatetags/board_extras.py
@@ -232,10 +237,38 @@ register = template.Library()
 def basename(value):
     return os.path.basename(value)
 ```
-2. board/templatetags/__init__.py 파일도 빈 파일로 생성
+2. board/templatetags/\_\_init\_\_.py 파일도 빈 파일로 생성
 3. 필터를 사용하려는 템플릿 상단에 아래의 선언문 추가
    * {% load board_extras %}
+```django
+{% load board_extras %}
+<!-- board/templates/board/post_detail.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h2>{{ post.title }}</h2>
+    <p>작성자: {{ post.author }}</p>
+    <p>작성일: {{ post.created_at }}</p>
+    <p>조회수: {{ post.hit }}</p>
+    <p>내용:</p>
+    <div>{{ post.content|linebreaks }}</div>  <!--줄바꿈은 <br>, 빈 줄은 단락 <p>로 바꾸는 내장필터-->
 
+    {% if post.attachment %}
+        <p>첨부파일:
+            <a href="{{ post.attachment.url }}" download> <!--HTML5에서 지원하는 다운로드 기능-->
+                {{ post.attachment.name|basename }}  <!--파일명만 이용자에게 표시됨-->
+            </a>
+        </p>
+    {% endif %}
+
+    <a href="{% url 'board:post_list' %}">← 목록으로</a>
+</body>
+</html>
+```
 
 ## 글 수정
 *
