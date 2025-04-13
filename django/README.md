@@ -260,8 +260,8 @@ def basename(value):
     {% if post.attachment %}
         <p>첨부파일:
             <a href="{{ post.attachment.url }}" download> <!--HTML5에서 지원하는 다운로드 기능-->
-                {{ post.attachment.name|basename }}  <!--파일명만 이용자에게 표시됨-->
-            </a>
+                {{ post.attachment.name|basename }}  <!--업로드 저장 경로에서 파일명만 이용자에게 표시됨-->
+            </a>  <--attachment.url:MEDIA_URL 경로를 통해 파일의 URL을 반환-->
         </p>
     {% endif %}
 
