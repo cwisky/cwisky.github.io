@@ -53,3 +53,140 @@ class Post(models.Model):
 4. 데이터베이스 테이블 생성(마이그레이션 생성 및 적용)
 * python manage.py makemigrations
 * python manage.py migrate
+
+5. 모델을 관리자 페이지에서 볼 수 있도록 등록
+```python
+# board/admin.py
+from django.contrib import admin
+from .models import Post
+
+admin.site.register(Post)
+```
+
+5. 뷰(View) 작성
+```python
+# board/views.py
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Post
+from .forms import PostForm
+
+def post_list(request):
+    posts = Post.objects.filter(parent=None).order_by('-created_at')
+    return render(request, 'board/post_list.html', {'posts': posts})
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.hit += 1
+    post.save()
+    return render(request, 'board/post_detail.html', {'post': post})
+
+def post_create(request, parent_id=None):
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            if parent_id:
+                post.parent = Post.objects.get(id=parent_id)
+            post.save()
+            return redirect('post_list')
+    else:
+        form = PostForm()
+    return render(request, 'board/post_form.html', {'form': form})
+```
+6. 폼 클래스(django.forms.ModelForm) 선언
+   * 이용자의 폼 데이터를 받아서 모델 클래스(Post)에 연결하거나 모델 인스턴스를 이용자 폼에 전달함
+```python
+# board/forms.py
+from django import forms
+from .models import Post
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'author', 'content', 'attachment']
+```
+7. 앱 URL 설정
+```python
+# board/urls.py
+from django.urls import path
+from . import views
+app_name = 'board'
+urlpatterns = [
+    path('', views.post_list, name='post_list'),
+    path('post/<int:pk>/', views.post_detail, name='post_detail'),
+    path('post/new/', views.post_create, name='post_new'),
+    path('post/<int:parent_id>/reply/', views.post_create, name='post_reply'),
+]
+```
+8. 프로젝트 URL 설정
+```python
+# mybbs/urls.py
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('board/', include('board.urls')),   # 모든 'board/'요청은 앱 urls.py의 path('', ...) 와 연결됨
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+9. 템플릿 구성(계층구조 출력)
+```django
+<!-- board/templates/board/post_list.html -->
+<h2>게시글 목록</h2>
+<a href="{% url 'board:post_new' %}">새 글 쓰기</a>
+<ul>
+  {% for post in posts %}
+    <li>
+      <a href="{% url 'board:post_detail' post.pk %}">{{ post.title }}</a> - {{ post.author }} - {{ post.created_at }}
+      <a href="{% url 'board:post_reply' post.pk %}">답글</a>
+      {% include 'board/post_replies.html' with replies=post.replies.all %}
+    </li>
+  {% endfor %}
+</ul>
+```
+10. 위의 템플릿에 포함될 조각 파일
+```django
+<!-- board/templates/board/post_replies.html -->
+<ul style="margin-left: 20px;">
+  {% for reply in replies %}
+    <li>
+      <a href="{% url 'board:post_detail' reply.pk %}">{{ reply.title }}</a> - {{ reply.author }} - {{ reply.created_at }}
+      <a href="{% url 'board:post_reply' reply.pk %}">답글</a>
+      {% include 'board/post_replies.html' with replies=reply.replies.all %}
+    </li>
+  {% endfor %}
+</ul>
+```
+11. 글 작성 템플릿
+```django
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>글 작성</title>
+</head>
+<body>
+    <h2>{% if form.instance.pk %}글 수정{% else %}글 작성{% endif %}</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">저장</button>
+    </form>
+
+    <a href="{% url 'board:post_list' %}">목록으로</a>
+</body>
+</html>
+```
+12. 첨부파일 저장을 위한 설정
+```python
+# mybbs/settings.py 하단에 추가
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+```
+13. 웹브라우저에서 테스트
+* python manage.py runserver
+* localhost:8000/board/ 접속
+* 
