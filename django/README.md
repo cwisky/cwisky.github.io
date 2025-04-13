@@ -220,7 +220,22 @@ MEDIA_ROOT = BASE_DIR / 'media'
 * localhost:8000/board/ 접속
 
 ## 첨부파일 다운로드
-*
+1. attachment/file-name 경로에서 file-name 부부만 보여주기위해 아래의 필터 선언(필터 함수로 basename()선언)
+```python
+# board/templatetags/board_extras.py
+import os
+from django import template
+
+register = template.Library()
+
+@register.filter
+def basename(value):
+    return os.path.basename(value)
+```
+2. board/templatetags/__init__.py 파일도 빈 파일로 생성
+3. 필터를 사용하려는 템플릿 상단에 아래의 선언문 추가
+   * {% load board_extras %}
+
 
 ## 글 수정
 *
