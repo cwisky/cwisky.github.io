@@ -1,4 +1,5 @@
-# BBS(Bulletin Board System)의 구조 추천
+# 계층 구조형 BBS(Bulletin Board System)
+## 프로젝트의 구조 추천
 bbs_project/  
 ├── post_create/       # 글 작성  
 ├── post_edit/         # 글 수정  
