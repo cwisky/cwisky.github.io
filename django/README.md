@@ -112,7 +112,7 @@ class PostForm(forms.ModelForm):
 from django.urls import path
 from . import views
 app_name = 'board'
-urlpatterns = [
+urlpatterns = [        # 프로젝트 urls.py의 url 접두어를 제거한 나머지 url 등록
     path('', views.post_list, name='post_list'),
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
     path('post/new/', views.post_create, name='post_new'),
