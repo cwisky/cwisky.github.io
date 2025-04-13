@@ -89,7 +89,7 @@ def post_create(request, parent_id=None):
             if parent_id:
                 post.parent = Post.objects.get(id=parent_id)
             post.save()
-            return redirect('post_list')
+            return redirect('board:post_list')
     else:
         form = PostForm()
     return render(request, 'board/post_form.html', {'form': form})
@@ -111,7 +111,9 @@ class PostForm(forms.ModelForm):
 # board/urls.py
 from django.urls import path
 from . import views
+
 app_name = 'board'
+
 urlpatterns = [        # 프로젝트 urls.py의 url 접두어를 제거한 나머지 url 등록
     path('', views.post_list, name='post_list'),
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
@@ -297,7 +299,45 @@ def post_edit(request, pk):
 ```
 
 ## 글 삭제
-*
+1. 삭제 URL 설정(board/urls.py에 아래 항목 추가)
+* path('post/<int:pk>/delete/', views.post_delete, name='post_delete'),  # ✅ 삭제 URL 추가
+2. 삭제 뷰 추가
+```python
+# board/views.py
+
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        post.delete()
+        return redirect('board:post_list')
+    return render(request, 'board/post_confirm_delete.html', {'post': post})
+```
+3. 삭제 재확인을 위한 템플릿 생성
+   * board/post_confirm_delete.html
+```django
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>글 삭제</title>
+</head>
+<body>
+    <h2>정말 삭제하시겠습니까?</h2>
+    <p><strong>{{ post.title }}</strong> - {{ post.author }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">✅ 예, 삭제합니다</button>
+        <a href="{% url 'board:post_detail' post.pk %}">❌ 아니요, 돌아가기</a>
+    </form>
+</body>
+</html>
+```
+4. 상세보기 템플릿(board/post_detail.html)에서 삭제 버튼 추가
+```django
+<a href="{% url 'board:post_edit' post.pk %}">✏️ 수정</a> |
+<a href="{% url 'board:post_delete' post.pk %}">🗑 삭제</a>
+```
 
 ## 글 검색
 *
