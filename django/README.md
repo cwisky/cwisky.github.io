@@ -181,6 +181,32 @@ urlpatterns = [
 </body>
 </html>
 ```
+12. 글 상세보기 템플릿
+```django
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <header>
+        <h1>{{ post.title }}</h1>
+        <p>By {{ post.author }} on {{ post.created_at }}</p>
+        <p>Views: {{ post.hit }}</p>
+    </header>
+    <main>
+        <article>
+            <p>{{ post.content }}</p>
+        </article>
+    </main>
+    <footer>
+        <a href="{% url 'board:post_list' %}">Back to Post List</a>
+    </footer>
+</body>
+</html>
+```
 12. 첨부파일 저장을 위한 설정
 ```python
 # mybbs/settings.py 하단에 추가
