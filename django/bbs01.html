@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Django 게시판(BBS) 계층 구조 구현 가이드</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; }
+        code, pre { background: #f4f4f4; padding: 4px 8px; display: block; white-space: pre-wrap; }
+        h1, h2, h3 { color: #2c3e50; }
+        ul { margin-left: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Django 계층 구조형 게시판(BBS) 구축 가이드</h1>
+
+    <h2>✅ 1. Django 프로젝트 및 앱 생성</h2>
+    <pre><code>django-admin startproject mybbs
+cd mybbs
+python manage.py startapp board</code></pre>
+
+    <h2>✅ 2. settings.py 앱 등록</h2>
+    <pre><code># mybbs/settings.py
+INSTALLED_APPS = [
+    ...
+    'board',
+]</code></pre>
+
+    <h2>✅ 3. 모델 정의</h2>
+    <pre><code>from django.db import models
+
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    hit = models.PositiveIntegerField(default=0)
+    attachment = models.FileField(upload_to='attachments/', null=True, blank=True)
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+
+    def __str__(self):
+        return self.title</code></pre>
+
+    <h2>✅ 4. 마이그레이션 적용</h2>
+    <pre><code>python manage.py makemigrations
+python manage.py migrate</code></pre>
+
+    <h2>✅ 5. 관리자 등록 (선택)</h2>
+    <pre><code>from django.contrib import admin
+from .models import Post
+
+admin.site.register(Post)</code></pre>
+
+    <h2>✅ 6. 뷰 작성</h2>
+    <pre><code>from django.shortcuts import render, get_object_or_404, redirect
+from .models import Post
+from .forms import PostForm
+
+def post_list(request):
+    posts = Post.objects.filter(parent=None).order_by('-created_at')
+    return render(request, 'board/post_list.html', {'posts': posts})
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.hit += 1
+    post.save()
+    return render(request, 'board/post_detail.html', {'post': post})
+
+def post_create(request, parent_id=None):
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            if parent_id:
+                post.parent = Post.objects.get(id=parent_id)
+            post.save()
+            return redirect('post_list')
+    else:
+        form = PostForm()
+    return render(request, 'board/post_form.html', {'form': form})</code></pre>
+
+    <h2>✅ 7. 폼 생성</h2>
+    <pre><code>from django import forms
+from .models import Post
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'author', 'content', 'attachment']</code></pre>
+
+    <h2>✅ 8. URL 설정</h2>
+    <pre><code># board/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.post_list, name='post_list'),
+    path('post/<int:pk>/', views.post_detail, name='post_detail'),
+    path('post/new/', views.post_create, name='post_new'),
+    path('post/<int:parent_id>/reply/', views.post_create, name='post_reply'),
+]</code></pre>
+
+    <pre><code># mybbs/urls.py
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('board.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)</code></pre>
+
+    <h2>✅ 9. 템플릿 구성</h2>
+    <h3>post_list.html</h3>
+    <pre><code>&lt;h2&gt;게시글 목록&lt;/h2&gt;
+&lt;a href="{% url 'post_new' %}"&gt;새 글 쓰기&lt;/a&gt;
+&lt;ul&gt;
+  {% for post in posts %}
+    &lt;li&gt;
+      &lt;a href="{% url 'post_detail' post.pk %}"&gt;{{ post.title }}&lt;/a&gt; - {{ post.author }} - {{ post.created_at }}
+      &lt;a href="{% url 'post_reply' post.pk %}"&gt;답글&lt;/a&gt;
+      {% include 'board/post_replies.html' with replies=post.replies.all %}
+    &lt;/li&gt;
+  {% endfor %}
+&lt;/ul&gt;</code></pre>
+
+    <h3>post_replies.html</h3>
+    <pre><code>&lt;ul style="margin-left: 20px;"&gt;
+  {% for reply in replies %}
+    &lt;li&gt;
+      &lt;a href="{% url 'post_detail' reply.pk %}"&gt;{{ reply.title }}&lt;/a&gt; - {{ reply.author }} - {{ reply.created_at }}
+      &lt;a href="{% url 'post_reply' reply.pk %}"&gt;답글&lt;/a&gt;
+      {% include 'board/post_replies.html' with replies=reply.replies.all %}
+    &lt;/li&gt;
+  {% endfor %}
+&lt;/ul&gt;</code></pre>
+
+    <h2>✅ 10. 미디어 설정</h2>
+    <pre><code># settings.py 하단
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'</code></pre>
+
+    <h2>🔄 요약</h2>
+    <table border="1" cellpadding="8">
+        <tr><th>항목</th><th>설명</th></tr>
+        <tr><td>계층형 구조</td><td>ForeignKey('self') 사용</td></tr>
+        <tr><td>첨부파일</td><td>FileField 사용</td></tr>
+        <tr><td>답글</td><td>재귀 템플릿으로 출력</td></tr>
+        <tr><td>CRUD</td><td>기본 뷰 함수 작성</td></tr>
+    </table>
+</body>
+</html>
