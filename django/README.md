@@ -271,7 +271,30 @@ def basename(value):
 ```
 
 ## 글 수정
-*
+1. board/urls.py 에 수정기능 추가
+* path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),  # ✅ 수정 URL 추가
+2. board/views.py 에 post_edit 함수 선언
+```python
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('board:post_detail', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'board/post_form.html', {'form': form})
+```
+3. post_detail.html 하단에 수정 링크 추가
+```django
+<a href="{% url 'board:post_edit' post.pk %}">✏️ 수정</a>
+```
+4. 기존 post_form.html 템플릿 재사용
+   * post_form.html은 form.instance.pk를 활용해서 글쓰기/수정 여부를 판별
+```django
+<h2>{% if form.instance.pk %}글 수정{% else %}글 작성{% endif %}</h2>
+```
 
 ## 글 삭제
 *
