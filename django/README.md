@@ -43,7 +43,7 @@ class Post(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     hit = models.PositiveIntegerField(default=0)
-    attachment = models.FileField(upload_to='attachments/', null=True, blank=True)
+    attachment = models.FileField(upload_to='attachments/', null=True, blank=True) # MEDIA_ROOT/attachments/
 
     # 부모글 번호 (자기 자신을 참조)
     parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
