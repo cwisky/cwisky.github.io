@@ -218,4 +218,27 @@ MEDIA_ROOT = BASE_DIR / 'media'
 13. 웹브라우저에서 테스트
 * python manage.py runserver
 * localhost:8000/board/ 접속
-* 
+
+## 첨부파일 다운로드
+*
+
+## 글 수정
+*
+
+## 글 삭제
+*
+
+## 글 검색
+*
+
+## Pagination
+*
+
+## AI 모델 로드 및 사용
+*
+
+## 부모 템플릿 상속 오버라이드
+*
+
+## CSS, Layout 적용
+*
