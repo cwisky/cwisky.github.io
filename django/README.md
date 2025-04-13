@@ -16,3 +16,40 @@ bbs_project/
 ## 계층 구조형 BBS(게시판)
 * Threaded Comments 또는 Nested Comments, 트리형 구조 게시판이라고 불림
 * Django에서 ForeignKey를 활용하여 쉽게 구현 가능
+
+## 프로젝트, 앱 생성 및 프로젝트 설정
+1. 프로젝트 및 앱 생성
+  * django-admin startproject mybbs
+  * cd mybbs
+  * python manage.py startapp board
+2. 앱 등록
+```python
+# mybbs/settings.py
+INSTALLED_APPS = [
+    ...
+    'board.apps.BoardConfig',
+]
+```
+3. Model 클래스 Post 선언
+* 한개의 게시글을 데이터베이스에 저장하거나 게시글을 데이터베이스로부터 가져오는 역할
+```python
+# board/models.py
+from django.db import models
+
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    hit = models.PositiveIntegerField(default=0)
+    attachment = models.FileField(upload_to='attachments/', null=True, blank=True)
+
+    # 부모글 번호 (자기 자신을 참조)
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+
+    def __str__(self):
+        return self.title
+```
+4. 데이터베이스 테이블 생성(마이그레이션 생성 및 적용)
+* python manage.py makemigrations
+* python manage.py migrate
