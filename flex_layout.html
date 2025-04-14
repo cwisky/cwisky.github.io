@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Layout</title>
+    <style>
+        * {  /* 뷰포트의 크기에 전체 레이아웃의 크기를 정확히 맞추기 위해 */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* 너비/높이에 padding과 border가 포함됨 */
+        }
+        html, body {
+            height: 100%;
+            /*overflow: hidden;*/ /* 스크롤 아예 제거할 때 */
+        }
+        .container {  
+            display: flex; /* 하위에 오는 main영역에 flex:1 설정하기 위함 */
+            flex-direction: column;
+            height: 100%;
+            margin: 0;
+        }
+        header,main,aside,section,footer {
+            border: 1px solid #000;
+        }
+        main {
+            border: 1px solid #000;
+            display: flex;  /* 하위에 오는 section영역에 flex:1 설정하기 위함 */
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+        header {
+                height:80px
+        }
+        main aside {
+            width: 150px;
+            height:100%;
+        }
+        main section {
+            flex: 1;
+            height: 100%;
+        }
+        footer{
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h2>Welcome to Flex Layout</h2>
+    </header>
+    <main>
+        <aside class="sidebar">
+            <h2>Sidebar</h2>
+        </aside>
+        <section class="content">
+            <h2>Content Area</h2>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023</p>
+    </footer>
+</div>
+</body>
+</html>
