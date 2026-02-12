@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+    <head>
+    </head>
+    <style>
+    /* 기본 여백 초기화 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* 1. 전체 컨테이너: 세로 방향으로 꽉 채우기 */
+    .container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* 브라우저 높이 100% 차지 */
+        padding: 10px;
+        gap: 5px;      /* 박스 사이 간격 */
+    }
+
+    /* 2. 공통 박스 스타일 (테두리 설정) */
+    .box {
+        border: 2px solid #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        background-color: #f8f9fa;
+    }
+
+    /* 3. 헤더 & 푸터: 높이는 내용만큼, 가로는 꽉 참 */
+    header, footer {
+        flex: 0 0 60px; /* 높이를 60px로 고정 */
+        background-color: #e9ecef;
+    }
+
+    /* 4. 중간 그룹: 남은 세로 공간을 모두 차지 */
+    .middle-group {
+        display: flex;
+        flex: 1;   /* 헤더/푸터 제외한 남은 높이 다 가져가기 */
+        gap: 5px;  /* 가로 박스 사이 간격 */
+    }
+
+    /* 5. 좌우 사이드바: 가로 너비 고정 */
+    .side {
+        flex: 0 0 150px; /* 너비를 150px로 고정 */
+        background-color: #dee2e6;
+    }
+
+    /* 6. 중앙 박스: 핵심! 남은 가로 공간 독점 */
+    .center {
+        flex: 1; /* 팽창(1), 수축(1), 기본(0%) -> 남는 가로 공간 다 채움 */
+        background-color: #ffffff;
+        color: #007bff;
+        border-color: #007bff; /* 중앙만 강조 */
+    }
+    </style>
+    <body>
+    <div class="container">
+        <header class="box">상단 (Header)</header>
+        
+        <div class="middle-group">
+            <aside class="box side">좌측 (Aside)</aside>
+            <main class="box center">중앙 (Main - 나만 늘어남)</main>
+            <aside class="box side">우측 (Aside)</aside>
+        </div>
+        
+        <footer class="box">하단 (Footer)</footer>
+    </div>
+    </body>
+</html>
